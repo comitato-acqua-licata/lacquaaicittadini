@@ -815,7 +815,8 @@
 
     <div class="scheda-contatto">
       <h3>Contatti del comitato</h3>
-      <div class="riga"><div><strong>Email</strong>info@acquaaicittadini.it</div></div>
+      <div class="riga"><div><strong>Email</strong><a href="mailto:info@lacquaaicittadini.it" style="color:#A9C6EE;">info@lacquaaicittadini.it</a></div></div>
+      <div class="riga"><div><strong>PEC</strong><a href="mailto:comitato@pec.lacquaaicittadini.it" style="color:#A9C6EE;">comitato@pec.lacquaaicittadini.it</a></div></div>
       <div class="riga"><div><strong>Pagina social</strong><a href="#">Seguici per aggiornamenti</a></div></div>
       <div class="riga"><div><strong>Numero verde guasti AICA</strong>800 600 309 (gratuito, attivo 24h)</div></div>
       <div class="riga"><div><strong>Nuovi allacci / disattivazioni AICA</strong>800 555 506 (gratuito da rete fissa)</div></div>
@@ -848,13 +849,13 @@
         <details class="riquadro-privacy">
           <summary>Informativa sul trattamento dei dati personali (GDPR)</summary>
           <div class="testo-privacy">
-            <p><strong>Titolare del trattamento:</strong> Comitato civico "L'acqua ai cittadini", contattabile all'indirizzo email indicato nella sezione "Chi siamo" del sito. <em>[Da completare con il nominativo del referente legale del comitato prima della pubblicazione definitiva.]</em></p>
+            <p><strong>Titolare del trattamento:</strong> Comitato civico "L'acqua ai cittadini" — Referenti per la protezione dei dati personali: <strong>Angelo Rinascente</strong> e <strong>Benedetto Puccio</strong>, contattabili a <a href="mailto:info@lacquaaicittadini.it">info@lacquaaicittadini.it</a> oppure via PEC a <a href="mailto:comitato@pec.lacquaaicittadini.it">comitato@pec.lacquaaicittadini.it</a>.</p>
             <p><strong>Finalità del trattamento:</strong> i dati raccolti tramite questo modulo (nome, cognome, codice fiscale, comune di residenza, email) sono trattati esclusivamente per la gestione dell'elenco degli aderenti al comitato e per comunicazioni relative alle attività del comitato stesso.</p>
             <p><strong>Base giuridica:</strong> il trattamento si fonda sul consenso esplicito dell'interessato, manifestato tramite la sottoscrizione del presente modulo.</p>
             <p><strong>Modalità del trattamento:</strong> i dati sono conservati in forma digitale su Google Sheets, con accesso riservato ai soli referenti autorizzati del comitato, e non sono comunicati a terzi né diffusi pubblicamente, salvo obbligo di legge.</p>
             <p><strong>Periodo di conservazione:</strong> i dati sono conservati per la durata dell'adesione al comitato e, successivamente al recesso, per il tempo strettamente necessario alla gestione amministrativa, salvo richiesta di cancellazione anticipata.</p>
             <p><strong>Diritti dell'interessato:</strong> in qualsiasi momento è possibile richiedere l'accesso, la rettifica, la cancellazione dei propri dati, o la limitazione del trattamento, scrivendo al titolare ai contatti indicati nel sito. È inoltre possibile proporre reclamo al Garante per la Protezione dei Dati Personali.</p>
-            <p style="color:var(--testo-tenue);font-style:italic;">Questo testo è una bozza-base e dovrebbe essere rivisto e personalizzato da un referente del comitato prima della pubblicazione definitiva del sito, in particolare per quanto riguarda l'identificazione del titolare del trattamento.</p>
+            
           </div>
         </details>
       </div>
@@ -1262,7 +1263,7 @@ document.getElementById('form-segnalazione').addEventListener('submit', async (e
     form.reset();
   }catch(err){
     esito.className = "errore";
-    esito.textContent = "Non è stato possibile inviare la segnalazione. Riprova più tardi o scrivi a info@acquaaicittadini.it.";
+    esito.textContent = "Non è stato possibile inviare la segnalazione. Riprova più tardi o scrivi a info@lacquaaicittadini.it.";
   }finally{
     btn.disabled = false;
     btn.textContent = "Invia segnalazione";
@@ -1329,7 +1330,7 @@ document.getElementById('form-adesione').addEventListener('submit', async (e) =>
     }
   }catch(err){
     esito.className = "errore";
-    esito.textContent = "Non è stato possibile inviare l'adesione. Riprova più tardi o scrivi a info@acquaaicittadini.it.";
+    esito.textContent = "Non è stato possibile inviare l'adesione. Riprova più tardi o scrivi a info@lacquaaicittadini.it.";
   }finally{
     btn.disabled = false;
     btn.textContent = "Conferma adesione";
