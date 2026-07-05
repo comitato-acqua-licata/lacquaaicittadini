@@ -941,6 +941,12 @@
             <span>Dichiaro di aver preso visione dell'<strong>informativa sul trattamento dei dati personali</strong>. *</span>
           </label>
         </div>
+        <div class="campo campo-checkbox">
+          <label class="etichetta-checkbox">
+            <input type="checkbox" id="ade-onorabilita" name="onorabilita" required>
+            <span><strong>Dichiarazione di onorabilità</strong>: Il/La sottoscritto/a dichiara, sotto la propria responsabilità, di non aver riportato condanne penali passate in giudicato per reati gravi o che comportino l'interdizione anche temporanea dai pubblici uffici, e di non avere procedimenti penali in corso incompatibili con i valori di legalità e trasparenza del Comitato. *</span>
+          </label>
+        </div>
 
         <button type="submit" class="btn btn-primario" id="btn-invia-adesione">Conferma adesione</button>
         <div id="esito-adesione"></div>
@@ -1351,6 +1357,7 @@ document.getElementById('form-adesione').addEventListener('submit', async (e) =>
     email: form.email.value,
     accettaAtto: form.accettaAtto.checked,
     accettaPrivacy: form.accettaPrivacy.checked,
+    onorabilita: form.onorabilita.checked,
     dataInvio: new Date().toISOString()
   };
 
