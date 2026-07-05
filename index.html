@@ -549,7 +549,7 @@
     opacity:1;
     pointer-events:auto;
     transition:opacity .25s ease, transform .25s ease;
-    z-index:999;
+    z-index:9999;
   }
   #torna-su.visibile{opacity:1;pointer-events:auto;}
   #torna-su:hover{background:var(--accento);transform:translateY(-3px);}
@@ -1558,7 +1558,7 @@ caricaTurni();
 caricaARERA();
 caricaModulistica();
 </script>
-<button id="torna-su" aria-label="Torna in cima alla pagina" title="Torna su">↑</button>
+<button id="torna-su" aria-label="Torna in cima alla pagina" title="Torna su" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 </body>
 </html>
