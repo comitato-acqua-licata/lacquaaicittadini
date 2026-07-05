@@ -254,6 +254,35 @@
   .social-btn.facebook{background:#1877F2;color:#fff;}
   .social-btn.instagram{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;}
 
+  /* ===== Coordinamento Tecnico ===== */
+  .griglia-membri{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:12px;}
+  .scheda-membro{
+    background:#fff;border:1px solid var(--confine);border-radius:10px;
+    padding:20px;display:flex;gap:14px;align-items:flex-start;
+  }
+  .avatar-membro{
+    width:48px;height:48px;border-radius:50%;flex-shrink:0;
+    background:var(--petrolio);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;font-weight:700;font-family:var(--serif);
+  }
+  .avatar-membro img{width:100%;height:100%;border-radius:50%;object-fit:cover;}
+  .info-membro h4{margin:0 0 4px;font-size:.98rem;color:var(--blu-marina);font-family:var(--serif);}
+  .info-membro .ruolo{font-size:.82rem;color:var(--petrolio);font-weight:600;margin-bottom:5px;}
+  .info-membro .competenze{font-size:.82rem;color:var(--testo-tenue);margin-bottom:6px;}
+  .info-membro a{font-size:.82rem;}
+
+  .griglia-doc-tecnici{display:grid;gap:12px;}
+  .scheda-doc-tecnico{
+    background:#fff;border:1px solid var(--confine);
+    border-left:4px solid var(--accento);
+    border-radius:var(--radius);padding:16px 18px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  .scheda-doc-tecnico .meta{font-size:.78rem;color:var(--testo-tenue);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;font-weight:600;}
+  .scheda-doc-tecnico h4{margin:0 0 4px;font-size:.96rem;color:var(--blu-marina);font-family:var(--serif);}
+  .scheda-doc-tecnico p{margin:0;font-size:.84rem;color:var(--testo-tenue);}
+
   /* ===== Sezioni generiche ===== */
   section{padding:56px 24px;}
   section.alt{background:var(--avorio-scuro);}
@@ -655,6 +684,7 @@
       <a href="#turni">Turni idrici</a>
       <a href="#arera">ARERA</a>
       <a href="#modulistica">Modulistica</a>
+      <a href="#coordinamento">Coordinamento</a>
       <a href="#chi-siamo">Il comitato</a>
       <a href="#aderisci">Aderisci</a>
       <a href="#partecipa">Segnala e partecipa</a>
@@ -818,6 +848,36 @@
     <div class="tab-mod-pannello" id="tab-mod-moduli">
       <div class="griglia-modulistica" id="griglia-mod-moduli">
         <div class="placeholder-caricamento">Caricamento moduli…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COORDINAMENTO TECNICO ===================== -->
+<section id="coordinamento">
+  <div class="wrap">
+    <div class="titolo-sezione">
+      <div>
+        <span class="eyebrow">Il gruppo di lavoro</span>
+        <h2>Coordinamento Tecnico</h2>
+      </div>
+    </div>
+    <p class="sotto-titolo">Il coordinamento tecnico del comitato è composto da esperti e professionisti che supportano le attività di analisi, monitoraggio e documentazione sul servizio idrico integrato.</p>
+
+    <div class="tab-bar" role="tablist" style="margin-bottom:28px;">
+      <button class="tab-btn attivo" data-tab="tab-coord-membri" role="tab" aria-selected="true">Membri del coordinamento</button>
+      <button class="tab-btn" data-tab="tab-coord-documenti" role="tab" aria-selected="false">Documenti tecnici</button>
+    </div>
+
+    <div class="tab-pannello attivo" id="tab-coord-membri">
+      <div class="griglia-membri" id="griglia-coord-membri">
+        <div class="placeholder-caricamento">Caricamento membri…</div>
+      </div>
+    </div>
+
+    <div class="tab-pannello" id="tab-coord-documenti">
+      <div class="griglia-doc-tecnici" id="griglia-coord-documenti">
+        <div class="placeholder-caricamento">Caricamento documenti tecnici…</div>
       </div>
     </div>
   </div>
@@ -1065,6 +1125,7 @@
         <li><a href="#turni">Turni idrici</a></li>
         <li><a href="#arera">ARERA</a></li>
         <li><a href="#modulistica">Modulistica</a></li>
+        <li><a href="#coordinamento">Coordinamento</a></li>
         <li><a href="#chi-siamo">Il comitato</a></li>
         <li><a href="#partecipa">Segnala e partecipa</a></li>
       </ul>
@@ -1582,12 +1643,79 @@ if(btnTornaSu){
   });
 }
 
+/* ---------- Caricamento COORDINAMENTO TECNICO dal backend ---------- */
+async function caricaCoordinamento(){
+  // Membri
+  try{
+    const res = await fetch(`${URL_BACKEND}?azione=coordinamento_membri`);
+    if(!res.ok) throw new Error("Risposta non valida");
+    const dati = await res.json();
+    const griglia = document.getElementById('griglia-coord-membri');
+    const membri = dati.membri || [];
+    if(membri.length === 0){
+      griglia.innerHTML = '<div class="placeholder-caricamento">Nessun membro inserito al momento.</div>';
+    } else {
+      griglia.innerHTML = "";
+      membri.forEach(m => {
+        const iniziale = m.nome ? m.nome.trim()[0].toUpperCase() : "?";
+        const fotoHtml = m.foto
+          ? `<img src="${m.foto}" alt="${m.nome}">`
+          : iniziale;
+        const div = document.createElement('div');
+        div.className = "scheda-membro";
+        div.innerHTML = `
+          <div class="avatar-membro">${fotoHtml}</div>
+          <div class="info-membro">
+            <h4>${m.nome}</h4>
+            <div class="ruolo">${m.ruolo || ''}</div>
+            <div class="competenze">${m.competenze || ''}</div>
+            ${m.email ? `<a href="mailto:${m.email}">${m.email}</a>` : ''}
+          </div>`;
+        griglia.appendChild(div);
+      });
+    }
+  }catch(err){
+    document.getElementById('griglia-coord-membri').innerHTML =
+      '<div class="placeholder-errore">Non è stato possibile caricare i membri del coordinamento.</div>';
+  }
+
+  // Documenti tecnici
+  try{
+    const res2 = await fetch(`${URL_BACKEND}?azione=coordinamento_documenti`);
+    if(!res2.ok) throw new Error("Risposta non valida");
+    const dati2 = await res2.json();
+    const griglia2 = document.getElementById('griglia-coord-documenti');
+    const documenti = dati2.documenti || [];
+    if(documenti.length === 0){
+      griglia2.innerHTML = '<div class="placeholder-caricamento">Nessun documento tecnico disponibile al momento.</div>';
+    } else {
+      griglia2.innerHTML = "";
+      documenti.forEach(d => {
+        const div = document.createElement('div');
+        div.className = "scheda-doc-tecnico";
+        div.innerHTML = `
+          <div>
+            <div class="meta">${d.data || ''}${d.autore ? ' — ' + d.autore : ''}</div>
+            <h4>${d.titolo}</h4>
+            <p>${d.descrizione || ''}</p>
+          </div>
+          ${d.link ? `<a class="allegato-link" href="${d.link}" target="_blank" rel="noopener">Apri ↗</a>` : ''}`;
+        griglia2.appendChild(div);
+      });
+    }
+  }catch(err){
+    document.getElementById('griglia-coord-documenti').innerHTML =
+      '<div class="placeholder-errore">Non è stato possibile caricare i documenti tecnici.</div>';
+  }
+}
+
 /* ---------- Avvio ---------- */
 caricaAvvisi();
 caricaComunicatiComitato();
 caricaTurni();
 caricaARERA();
 caricaModulistica();
+caricaCoordinamento();
 </script>
 <button id="torna-su" aria-label="Torna in cima alla pagina" title="Torna su" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
