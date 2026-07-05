@@ -241,6 +241,19 @@
   .scheda-mod h4{margin:0 0 6px;font-size:.96rem;color:var(--blu-marina);font-family:var(--serif);}
   .scheda-mod p{margin:0 0 12px;font-size:.85rem;color:var(--testo-tenue);}
 
+  /* ===== Social links ===== */
+  .social-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  .social-btn{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:8px 14px;border-radius:999px;
+    font-size:.85rem;font-weight:600;font-family:var(--sans);
+    text-decoration:none;transition:opacity .15s ease;
+  }
+  .social-btn:hover{opacity:.85;text-decoration:none;}
+  .social-btn.youtube{background:#FF0000;color:#fff;}
+  .social-btn.facebook{background:#1877F2;color:#fff;}
+  .social-btn.instagram{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;}
+
   /* ===== Sezioni generiche ===== */
   section{padding:56px 24px;}
   section.alt{background:var(--avorio-scuro);}
@@ -839,7 +852,14 @@
       <h3>Contatti del comitato</h3>
       <div class="riga"><div><strong>Email</strong><a href="mailto:info@lacquaaicittadini.it" style="color:#A9C6EE;">info@lacquaaicittadini.it</a></div></div>
       <div class="riga"><div><strong>PEC</strong><a href="mailto:comitato@pec.lacquaaicittadini.it" style="color:#A9C6EE;">comitato@pec.lacquaaicittadini.it</a></div></div>
-      <div class="riga"><div><strong>Pagina social</strong><a href="#">Seguici per aggiornamenti</a></div></div>
+      <div class="riga"><div><strong>Canale YouTube</strong>
+        <div class="social-links" style="margin-top:8px;">
+          <a href="https://www.youtube.com/channel/UCIMupvE1Ls1ByT7p3LejRhA" target="_blank" rel="noopener" class="social-btn youtube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            YouTube
+          </a>
+        </div>
+      </div></div>
       <div class="riga"><div><strong>Numero verde guasti AICA</strong>800 600 309 (gratuito, attivo 24h)</div></div>
       <div class="riga"><div><strong>Nuovi allacci / disattivazioni AICA</strong>800 555 506 (gratuito da rete fissa)</div></div>
       <p style="font-size:.82rem;color:#9FB3BC;margin-top:18px;">I numeri sopra sono di AICA, riportati per comodità. Il comitato non gestisce direttamente il servizio idrico.</p>
@@ -1029,7 +1049,11 @@
       <p style="max-width:34ch;color:#9FB3BC;">Comitato civico indipendente per l'informazione e la partecipazione sul servizio idrico nella provincia di Agrigento.</p>
     </div>
     <div>
-      <h5>Sezioni</h5>
+      <h5>Seguici</h5>
+      <ul>
+        <li><a href="https://www.youtube.com/channel/UCIMupvE1Ls1ByT7p3LejRhA" target="_blank" rel="noopener">▶ YouTube</a></li>
+      </ul>
+      <h5 style="margin-top:20px;">Sezioni</h5>
       <ul>
         <li><a href="#avvisi">Avvisi AICA</a></li>
         <li><a href="#turni">Turni idrici</a></li>
