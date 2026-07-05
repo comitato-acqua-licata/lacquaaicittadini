@@ -546,8 +546,8 @@
     cursor:pointer;
     box-shadow:0 4px 14px rgba(0,0,0,0.25);
     display:flex;align-items:center;justify-content:center;
-    opacity:0;
-    pointer-events:none;
+    opacity:1;
+    pointer-events:auto;
     transition:opacity .25s ease, transform .25s ease;
     z-index:999;
   }
@@ -1540,7 +1540,7 @@ async function caricaModulistica(){
 const btnTornaSu = document.getElementById('torna-su');
 if(btnTornaSu){
   window.addEventListener('scroll', () => {
-    if(window.scrollY > 300){
+    if(window.scrollY > 50){
       btnTornaSu.classList.add('visibile');
     } else {
       btnTornaSu.classList.remove('visibile');
