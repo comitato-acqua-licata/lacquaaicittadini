@@ -433,6 +433,14 @@
   }
   .allegato-link:hover{background:var(--accento);color:#fff;text-decoration:none;}
 
+  .player-podcast{margin-top:12px;}
+  .player-podcast iframe{
+    width:100%;
+    height:110px;
+    border:1px solid var(--confine);
+    border-radius:var(--radius);
+  }
+
   /* ===== Turni idrici ===== */
   .barra-comune-evidenza{
     background:#fff;
@@ -924,24 +932,46 @@
         <h2>Podcast &amp; Video</h2>
       </div>
     </div>
-    <p class="sotto-titolo">Approfondimenti audio e video del comitato su acqua, turni idrici e trasparenza nel servizio idrico. Alcune piattaforme sono ancora in arrivo: aggiorna i link non appena saranno attive.</p>
-    <div class="griglia-moduli">
-      <div class="scheda-modulo">
-        <h4>🎧 Spotify</h4>
-        <p>Podcast in arrivo su Spotify.</p>
-        <!-- Quando è pronto, sostituisci il commento qui sotto con il link vero:
-        <a href="LINK_SPOTIFY" target="_blank" rel="noopener">Ascolta su Spotify →</a> -->
+    <p class="sotto-titolo">Approfondimenti audio e video del comitato su acqua, turni idrici e trasparenza nel servizio idrico.</p>
+    <div class="griglia-modulistica" style="grid-template-columns:1fr;gap:18px;max-width:680px;">
+
+      <!-- PODCAST: player audio integrato via Google Drive. -->
+      <div class="scheda-mod">
+        <span class="badge badge-modulo">Podcast</span>
+        <h4>🎧 Ultimo episodio</h4>
+        <p>Ascolta l'audio direttamente qui sotto.</p>
+        <div class="player-podcast">
+          <iframe src="https://drive.google.com/file/d/1lGFUJRo1yQKUaXkvjWu5siWQm2wH6Px0/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
       </div>
-      <div class="scheda-modulo">
-        <h4>▶ YouTube</h4>
-        <p>Video e approfondimenti sul nostro canale.</p>
-        <a href="https://www.youtube.com/@Comitatocivicolacquaaicittadin" target="_blank" rel="noopener">Guarda su YouTube →</a>
+
+      <!-- VIDEO 1 -->
+      <div class="scheda-mod">
+        <span class="badge badge-documento">Video</span>
+        <h4>▶ Video 1</h4>
+        <div class="allegato-comunicato" style="margin-top:10px;">
+          <iframe src="https://drive.google.com/file/d/1bN59pIEl3umcPlnKpB2718hf14FrypP6/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
       </div>
-      <div class="scheda-modulo">
-        <h4>🎙 Altre piattaforme</h4>
-        <p>Apple Podcast e altri canali in arrivo.</p>
-        <!-- <a href="LINK_ALTRA_PIATTAFORMA" target="_blank" rel="noopener">Ascolta →</a> -->
+
+      <!-- VIDEO 2 -->
+      <div class="scheda-mod">
+        <span class="badge badge-documento">Video</span>
+        <h4>▶ Video 2</h4>
+        <div class="allegato-comunicato" style="margin-top:10px;">
+          <iframe src="https://drive.google.com/file/d/1TRtaOg9cUA_hbEE2jfeeQWjI9FkATWhr/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
       </div>
+
+      <!-- VIDEO 3 -->
+      <div class="scheda-mod">
+        <span class="badge badge-documento">Video</span>
+        <h4>▶ Video 3</h4>
+        <div class="allegato-comunicato" style="margin-top:10px;">
+          <iframe src="https://drive.google.com/file/d/169eqWKwxTZivYrWTsoAX4vSHzOJ92V0G/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
