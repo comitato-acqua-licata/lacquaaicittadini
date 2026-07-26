@@ -933,45 +933,8 @@
       </div>
     </div>
     <p class="sotto-titolo">Approfondimenti audio e video del comitato su acqua, turni idrici e trasparenza nel servizio idrico.</p>
-    <div class="griglia-modulistica" style="grid-template-columns:1fr;gap:18px;max-width:680px;">
-
-      <!-- PODCAST: player audio integrato via Google Drive. -->
-      <div class="scheda-mod">
-        <span class="badge badge-modulo">Podcast</span>
-        <h4>🎧 Il paradosso dell'acqua ad Agrigento e province: utenti costretti a pagare due volte AICA</h4>
-        <p>Ascolta l'audio direttamente qui sotto.</p>
-        <div class="player-podcast">
-          <iframe src="https://drive.google.com/file/d/1lGFUJRo1yQKUaXkvjWu5siWQm2wH6Px0/preview" allow="autoplay" loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <!-- VIDEO 1 -->
-      <div class="scheda-mod">
-        <span class="badge badge-documento">Video</span>
-        <h4>▶ Video 1</h4>
-        <div class="allegato-comunicato" style="margin-top:10px;">
-          <iframe src="https://drive.google.com/file/d/1bN59pIEl3umcPlnKpB2718hf14FrypP6/preview" allow="autoplay" loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <!-- VIDEO 2 -->
-      <div class="scheda-mod">
-        <span class="badge badge-documento">Video</span>
-        <h4>▶ Video 2</h4>
-        <div class="allegato-comunicato" style="margin-top:10px;">
-          <iframe src="https://drive.google.com/file/d/1TRtaOg9cUA_hbEE2jfeeQWjI9FkATWhr/preview" allow="autoplay" loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <!-- VIDEO 3 -->
-      <div class="scheda-mod">
-        <span class="badge badge-documento">Video</span>
-        <h4>▶ Video 3</h4>
-        <div class="allegato-comunicato" style="margin-top:10px;">
-          <iframe src="https://drive.google.com/file/d/169eqWKwxTZivYrWTsoAX4vSHzOJ92V0G/preview" allow="autoplay" loading="lazy"></iframe>
-        </div>
-      </div>
-
+    <div class="griglia-modulistica" id="griglia-podcast-video" style="grid-template-columns:1fr;gap:18px;max-width:680px;">
+      <div class="placeholder-caricamento">Caricamento podcast e video…</div>
     </div>
   </div>
 </section>
@@ -2001,6 +1964,54 @@ async function caricaComitato(){
   }
 }
 
+/* ---------- Caricamento PODCAST/VIDEO dal backend ---------- */
+async function caricaPodcastVideo(){
+  const contenitore = document.getElementById('griglia-podcast-video');
+  try{
+    const res = await fetch(`${URL_BACKEND}?azione=podcast_video`);
+    if(!res.ok) throw new Error("Risposta non valida dal server");
+    const dati = await res.json();
+    const elementi = dati.elementi || [];
+
+    if(elementi.length === 0){
+      contenitore.innerHTML = '<div class="placeholder-caricamento">Nessun podcast o video pubblicato al momento.</div>';
+      return;
+    }
+
+    contenitore.innerHTML = "";
+    elementi.forEach(el => {
+      const div = document.createElement('div');
+      div.className = "scheda-mod";
+      const ePodcast = el.tipo === "podcast";
+      const badgeClass = ePodcast ? "badge-modulo" : "badge-documento";
+      const badgeLabel = ePodcast ? "Podcast" : "Video";
+      const iconaTitolo = ePodcast ? "🎧" : "▶";
+
+      let htmlMedia = "";
+      const a = el.allegato;
+      if(a && a.tipo === "video_youtube"){
+        htmlMedia = `<div class="allegato-comunicato" style="margin-top:10px;"><iframe src="https://www.youtube.com/embed/${a.idIncorporato}" allowfullscreen loading="lazy"></iframe></div>`;
+      } else if(a && a.tipo === "drive" && ePodcast){
+        htmlMedia = `<div class="player-podcast"><iframe src="${a.linkVisualizzazione}" allow="autoplay" loading="lazy"></iframe></div>`;
+      } else if(a && a.tipo === "drive"){
+        htmlMedia = `<div class="allegato-comunicato" style="margin-top:10px;"><iframe src="${a.linkVisualizzazione}" allow="autoplay" loading="lazy"></iframe></div>`;
+      } else if(a && a.linkOriginale){
+        htmlMedia = `<p style="margin-top:10px;"><a class="allegato-link" href="${a.linkOriginale}" target="_blank" rel="noopener">Apri ↗</a></p>`;
+      }
+
+      div.innerHTML = `
+        <span class="badge ${badgeClass}">${badgeLabel}</span>
+        <h4>${iconaTitolo} ${el.titolo}</h4>
+        ${el.descrizione ? `<p>${el.descrizione}</p>` : ''}
+        ${htmlMedia}
+      `;
+      contenitore.appendChild(div);
+    });
+  }catch(err){
+    contenitore.innerHTML = '<div class="placeholder-errore">Non è stato possibile caricare podcast e video in questo momento.</div>';
+  }
+}
+
 /* ---------- Avvio ---------- */
 caricaAvvisi();
 caricaComunicatiComitato();
@@ -2009,6 +2020,7 @@ caricaARERA();
 caricaModulistica();
 caricaCoordinamento();
 caricaComitato();
+caricaPodcastVideo();
 </script>
 <button id="torna-su" aria-label="Torna in cima alla pagina" title="Torna su" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
