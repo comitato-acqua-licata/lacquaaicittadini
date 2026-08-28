@@ -1246,8 +1246,8 @@
       <form class="segnalazione" id="form-segnalazione">
         <div class="campo-doppio">
           <div class="campo">
-            <label for="seg-nome">Nome (opzionale)</label>
-            <input type="text" id="seg-nome" name="nome" autocomplete="name">
+            <label for="seg-nome">Nome *</label>
+            <input type="text" id="seg-nome" name="nome" required autocomplete="name">
           </div>
           <div class="campo">
             <label for="seg-comune">Comune *</label>
@@ -1269,16 +1269,16 @@
           </select>
         </div>
         <div class="campo">
-          <label for="seg-zona">Zona / via (opzionale)</label>
-          <input type="text" id="seg-zona" name="zona" placeholder="Es. Via Dante, traversa San Leone…">
+          <label for="seg-zona">Zona / via *</label>
+          <input type="text" id="seg-zona" name="zona" required placeholder="Es. Via Dante, traversa San Leone…">
         </div>
         <div class="campo">
           <label for="seg-descrizione">Descrizione *</label>
           <textarea id="seg-descrizione" name="descrizione" required placeholder="Descrivi cosa è successo, da quando, e con quale frequenza."></textarea>
         </div>
         <div class="campo">
-          <label for="seg-contatto">Email o telefono (opzionale, se vuoi una risposta)</label>
-          <input type="text" id="seg-contatto" name="contatto" autocomplete="email">
+          <label for="seg-contatto">Email o telefono *</label>
+          <input type="text" id="seg-contatto" name="contatto" required autocomplete="email">
           <p class="nota-campo">I tuoi dati di contatto restano riservati al comitato e non vengono pubblicati.</p>
         </div>
         <button type="submit" class="btn btn-primario" id="btn-invia-segnalazione">Invia segnalazione</button>
