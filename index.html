@@ -1277,8 +1277,8 @@
           <textarea id="seg-descrizione" name="descrizione" required placeholder="Descrivi cosa è successo, da quando, e con quale frequenza."></textarea>
         </div>
         <div class="campo">
-          <label for="seg-contatto">Email o telefono *</label>
-          <input type="text" id="seg-contatto" name="contatto" required autocomplete="email">
+          <label for="seg-email">Email *</label>
+          <input type="email" id="seg-email" name="email" required autocomplete="email">
           <p class="nota-campo">I tuoi dati di contatto restano riservati al comitato e non vengono pubblicati.</p>
         </div>
         <button type="submit" class="btn btn-primario" id="btn-invia-segnalazione">Invia segnalazione</button>
@@ -1581,7 +1581,7 @@ document.getElementById('form-segnalazione').addEventListener('submit', async (e
     tipo: form.tipo.value,
     zona: form.zona.value,
     descrizione: form.descrizione.value,
-    contatto: form.contatto.value,
+    email: form.email.value,
     dataInvio: new Date().toISOString()
   };
 
