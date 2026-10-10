@@ -1387,41 +1387,10 @@ const ELENCO_COMUNI = [
   "Sciacca","Santa Elisabetta","Siculiana","Villafranca Sicula","Lampedusa e Linosa"
 ];
 
-const LINK_TURNI_COMUNI = {
-  "Agrigento":"https://sites.google.com/view/turni-agrigento/home",
-  "Aragona":"https://sites.google.com/view/turni-aragona/home",
-  "Calamonaci":"https://sites.google.com/view/turni-calamonaci/home",
-  "Caltabellotta":"https://sites.google.com/view/turni-caltabellotta/home",
-  "Campobello di Licata":"https://sites.google.com/view/turni-campobello-licata/home",
-  "Canicattì":"https://sites.google.com/view/turni-canicatti/home",
-  "Casteltermini":"https://sites.google.com/view/turni-casteltermini/home",
-  "Castrofilippo":"https://sites.google.com/view/turni-castrofilippo/home",
-  "Cattolica Eraclea":"https://sites.google.com/view/turni-cattolica-eraclea/home",
-  "Comitini":"https://sites.google.com/view/turni-comitini/home",
-  "Favara":"https://sites.google.com/view/turnifavara/home",
-  "Grotte":"https://sites.google.com/view/turni-grotte/home",
-  "Joppolo Giancaxio":"https://sites.google.com/view/turni-joppolo/home",
-  "Licata":"https://sites.google.com/view/turni-licata/home",
-  "Lucca Sicula":"https://sites.google.com/view/turni-lucca-sicula/home",
-  "Montallegro":"https://sites.google.com/view/turni-montallegro/home",
-  "Montevago":"https://sites.google.com/view/turni-montevago/home",
-  "Naro":"https://sites.google.com/view/turni-naro/home",
-  "Porto Empedocle":"https://sites.google.com/view/turni-porto-empedocle/home",
-  "Racalmuto":"https://sites.google.com/view/turni-racalmuto/home",
-  "Raffadali":"https://sites.google.com/view/turni-raffadali/home",
-  "Ravanusa":"https://sites.google.com/view/turni-comune-ravanusa/home",
-  "Realmonte":"https://sites.google.com/view/turni-realmonte/home",
-  "Ribera":"https://sites.google.com/view/turni-ribera/home",
-  "Sambuca di Sicilia":"https://sites.google.com/view/turni-sambuca-di-sicilia/home",
-  "San Biagio Platani":"https://sites.google.com/view/turnisanbiagio/home",
-  "San Giovanni Gemini":"https://sites.google.com/view/turni-san-giovanni-gemini/home",
-  "Sant'Angelo Muxaro":"https://sites.google.com/view/turni-santangelo/home",
-  "Sciacca":"https://sites.google.com/view/turni-sciacca/home",
-  "Santa Elisabetta":"https://sites.google.com/view/turni-santaelisabetta/home",
-  "Siculiana":"https://sites.google.com/view/turni-siculiana/home",
-  "Villafranca Sicula":"https://sites.google.com/view/turni-villafranca-sicula/home",
-  "Lampedusa e Linosa":"https://sites.google.com/view/turnilampedusaelinosa/home"
-};
+// Dal 10/2026 AICA pubblica i turni di tutti i comuni in un'unica pagina
+// (con menu "Seleziona il tuo comune"). I vecchi mini-siti Google Sites non esistono più.
+const URL_TURNI_AICA = "https://www.aicaonline.it/turni-idrici-2/";
+const LINK_TURNI_COMUNI = Object.fromEntries(ELENCO_COMUNI.map(c => [c, URL_TURNI_AICA]));
 
 document.getElementById('anno-corrente').textContent = new Date().getFullYear();
 document.getElementById('link-foglio-licata').href = LINK_TURNI_COMUNI["Licata"];
@@ -1534,6 +1503,8 @@ async function caricaAvvisi(){
 
 /* ---------- Caricamento TURNI dal backend ---------- */
 async function caricaTurni(){
+  const escTurni = t => String(t == null ? '' : t)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   try{
     const res = await fetch(`${URL_BACKEND}?azione=turni&comune=Licata`);
     if(!res.ok) throw new Error("Risposta non valida dal server");
@@ -1541,21 +1512,51 @@ async function caricaTurni(){
 
     document.getElementById('orario-turni').textContent = formattaOrario(dati.aggiornato);
 
+    // Mostro solo da oggi in avanti: la pagina AICA pubblica l'intera settimana, giorni passati compresi.
+    const oggi = new Date(); oggi.setHours(0,0,0,0);
+    const righeFuture = (dati.righe || []).filter(r => {
+      const m = String(r[0] || '').match(/(\d{2})\/(\d{2})/);
+      if(!m) return true; // etichetta non riconosciuta: la mostro comunque
+      const d = new Date(oggi.getFullYear(), parseInt(m[2],10)-1, parseInt(m[1],10));
+      if(d - oggi < -180*86400000) d.setFullYear(d.getFullYear()+1);
+      return d >= oggi;
+    });
+
     const riepilogo = document.getElementById('riepilogo-licata');
-    if(dati.righe && dati.righe.length > 0){
-      let html = '<table style="width:100%;border-collapse:collapse;margin-top:10px;">';
-      dati.righe.slice(0,7).forEach(r => {
-        html += `<tr style="border-bottom:1px solid var(--confine);">
-          <td style="padding:6px 0;font-weight:600;">${r[0] || ''}</td>
-          <td style="padding:6px 0;color:var(--testo-tenue);">${r[1] || ''}</td>
+    if(righeFuture.length > 0){
+      const VISIBILI = 8;
+      const rigaHtml = r => `<tr style="border-bottom:1px solid var(--confine);">
+          <td style="padding:6px 0;font-weight:600;">${escTurni(r[0])}${r[2] ? `<div style="font-weight:400;font-size:.82rem;color:var(--testo-tenue);">${escTurni(r[2])}</div>` : ''}</td>
+          <td style="padding:6px 0 6px 12px;color:var(--testo-tenue);white-space:nowrap;vertical-align:top;">${escTurni(r[1])}</td>
         </tr>`;
-      });
+      let html = '<table style="width:100%;border-collapse:collapse;margin-top:10px;"><tbody>';
+      html += righeFuture.slice(0, VISIBILI).map(rigaHtml).join('');
+      html += '</tbody>';
+      if(righeFuture.length > VISIBILI){
+        html += '<tbody id="turni-licata-altri" style="display:none;">' +
+                righeFuture.slice(VISIBILI).map(rigaHtml).join('') + '</tbody>';
+      }
       html += '</table>';
+      if(righeFuture.length > VISIBILI){
+        html += `<button type="button" id="btn-turni-licata-tutti" class="btn" style="margin-top:12px;">Mostra tutti i turni (${righeFuture.length})</button>`;
+      }
       riepilogo.innerHTML = html;
+
+      const btnTutti = document.getElementById('btn-turni-licata-tutti');
+      if(btnTutti){
+        btnTutti.addEventListener('click', () => {
+          const altri = document.getElementById('turni-licata-altri');
+          const aperto = altri.style.display !== 'none';
+          altri.style.display = aperto ? 'none' : 'table-row-group';
+          btnTutti.textContent = aperto ? `Mostra tutti i turni (${righeFuture.length})` : 'Mostra meno';
+        });
+      }
       document.getElementById('pallino-licata').className = "pallino";
       document.getElementById('stato-licata').textContent = "regolare";
     } else {
-      riepilogo.innerHTML = "Dati non disponibili al momento.";
+      riepilogo.innerHTML = (dati.righe && dati.righe.length > 0)
+        ? "Nessun turno programmato nei prossimi giorni."
+        : "Dati non disponibili al momento.";
       document.getElementById('pallino-licata').className = "pallino allerta";
       document.getElementById('stato-licata').textContent = "n/d";
     }
