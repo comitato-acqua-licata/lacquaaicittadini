@@ -704,19 +704,12 @@
 
   /* ===== Sostieni il comitato ===== */
   .sostieni-box{
-    display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:stretch;
+    display:grid;grid-template-columns:1fr;gap:28px;align-items:stretch;
     background:linear-gradient(135deg,var(--blu-marina),var(--blu-marina-scuro));
     color:#fff;border-radius:14px;padding:32px;box-shadow:0 18px 40px rgba(46,69,112,.18);
   }
   .sostieni-box h2{color:#fff!important;margin-top:0;}
   .sostieni-box p{color:#DCE7F3;max-width:62ch;}
-  .sostieni-dati{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:22px;}
-  .sostieni-dati .etichetta{font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:#C8D9EE;font-weight:700;}
-  .iban-riga{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0 16px;}
-  .iban-riga code{font-family:var(--sans);font-weight:700;font-size:.98rem;color:#fff;word-break:break-all;background:rgba(0,0,0,.16);padding:10px 12px;border-radius:8px;}
-  .btn-copia{border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;border-radius:8px;padding:9px 12px;font-weight:700;cursor:pointer;}
-  .btn-copia:hover{background:rgba(255,255,255,.14);}
-  .nota-trasparenza{font-size:.82rem!important;color:#C8D9EE!important;margin:14px 0 0!important;}
   .azioni-fisse{position:fixed;right:18px;bottom:18px;z-index:80;display:grid;gap:10px;}
   .azione-fissa{display:flex;align-items:center;justify-content:center;min-width:48px;height:48px;padding:0 16px;border-radius:999px;background:var(--blu-marina);color:#fff!important;font-weight:700;box-shadow:0 8px 22px rgba(42,58,79,.25);text-decoration:none!important;}
   .azione-fissa:hover{background:var(--blu-marina-scuro);transform:translateY(-1px);}
@@ -1124,20 +1117,6 @@
           <a class="btn btn-secondario" href="#chi-siamo">Scopri chi siamo</a>
         </div>
         <p style="margin-top:22px;"><strong>Sostenere l'azione del Comitato significa investire direttamente nella tutela e nel futuro della nostra comunità.</strong></p>
-      </div>
-      <div class="sostieni-dati" aria-label="Dati per il bonifico">
-        <div class="etichetta">Bonifico bancario</div>
-        <p style="margin:6px 0 12px;color:#fff;"><strong>IntesaSanpaolo</strong></p>
-        <div class="etichetta">IBAN</div>
-        <div class="iban-riga">
-          <code id="iban-comitato">IT29E0306967684510337009746</code>
-          <button type="button" class="btn-copia" id="copia-iban">Copia IBAN</button>
-        </div>
-        <div class="etichetta">Causale cittadini</div>
-        <p style="margin:5px 0 14px;color:#fff;"><strong>Io ci sono</strong></p>
-        <div class="etichetta">Causale imprenditori</div>
-        <p style="margin:5px 0 0;color:#fff;"><strong>Io investo</strong></p>
-        <p class="nota-trasparenza">Contributo volontario a sostegno delle attività civiche del Comitato. Conserva la ricevuta del bonifico.</p>
       </div>
     </div>
   </div>
@@ -2026,22 +2005,6 @@ caricaPodcastVideo();
 <button id="torna-su" aria-label="Torna in cima alla pagina" title="Torna su" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script data-goatcounter="https://lacquaaicittadini.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<script>
-// Copia rapida dell'IBAN
-const pulsanteCopiaIban = document.getElementById('copia-iban');
-if (pulsanteCopiaIban) {
-  pulsanteCopiaIban.addEventListener('click', async () => {
-    const iban = document.getElementById('iban-comitato').textContent.trim();
-    try {
-      await navigator.clipboard.writeText(iban);
-      pulsanteCopiaIban.textContent = 'Copiato';
-      setTimeout(() => { pulsanteCopiaIban.textContent = 'Copia IBAN'; }, 1800);
-    } catch (errore) {
-      window.prompt('Copia questo IBAN:', iban);
-    }
-  });
-}
-</script>
 
 </body>
 </html>
