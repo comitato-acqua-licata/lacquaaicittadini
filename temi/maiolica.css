@@ -1,0 +1,61 @@
+/* E — Maiolica: ceramica siciliana, archi, colori caldi del Mediterraneo */
+:root{
+  --blu-marina:#13377A; --blu-marina-scuro:#0C2556;
+  --petrolio:#1F5FB0; --petrolio-chiaro:#5E93D6;
+  --accento:#E8A317; --accento-scuro:#C4870C;
+  --avorio:#FFF8EC; --avorio-scuro:#FCEBD0; --bianco:#FFFDF8;
+  --testo:#2B2340; --testo-tenue:#6A5F78; --confine:#EAD7B5;
+  --ok:#3E8A4F;
+  --radius:16px;
+  --serif:'Cormorant Garamond', Georgia, serif; --sans:'Nunito Sans', system-ui, sans-serif;
+  --piastrella:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' fill='%23FFF8EC'/%3E%3Cg fill='none' stroke='%2313377A' stroke-width='2'%3E%3Ccircle cx='40' cy='40' r='18'/%3E%3Cpath d='M40 4 Q52 28 76 40 Q52 52 40 76 Q28 52 4 40 Q28 28 40 4Z'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='7' fill='%23E8A317'/%3E%3Cg fill='%233E8A4F'%3E%3Ccircle cx='0' cy='0' r='8'/%3E%3Ccircle cx='80' cy='0' r='8'/%3E%3Ccircle cx='0' cy='80' r='8'/%3E%3Ccircle cx='80' cy='80' r='8'/%3E%3C/g%3E%3C/svg%3E");
+}
+body.tema-maiolica{background:var(--avorio);}
+.tema-maiolica header.principale{background:var(--blu-marina);}
+.tema-maiolica header.principale::after{height:22px;background:var(--piastrella) center/22px 22px repeat-x;}
+.tema-maiolica .logo-testo h1{font-size:2.9rem;font-weight:700;font-style:italic;}
+.tema-maiolica .logo-testo p{color:var(--accento);}
+.tema-maiolica nav.principale a{border-radius:999px;border-color:rgba(232,163,23,.5);}
+.tema-maiolica nav.principale a:hover{background:var(--accento);color:var(--blu-marina);}
+
+.tema-maiolica .hero{background:var(--avorio) var(--piastrella) 0 0/80px 80px;min-height:min(86vh,760px);color:var(--testo);}
+.tema-maiolica .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--avorio) 40%,rgba(255,248,236,.6));z-index:1;}
+.tema-maiolica .hero-galleria{left:auto;right:4%;top:8%;bottom:8%;width:min(42%,520px);border-radius:999px 999px 18px 18px;overflow:hidden;border:10px solid var(--bianco);outline:3px solid var(--blu-marina);box-shadow:0 30px 60px rgba(19,55,122,.3);z-index:2;}
+.tema-maiolica .hero-velo{background:linear-gradient(0deg,rgba(19,55,122,.25),transparent 40%);}
+.tema-maiolica .hero > .wrap{z-index:3;}
+.tema-maiolica .hero-grid{grid-template-columns:minmax(0,1fr);max-width:54%;}
+.tema-maiolica .hero h2{font-size:clamp(2.4rem,5vw,4.2rem);color:var(--blu-marina);line-height:1.02;}
+.tema-maiolica .hero h2 em{color:var(--accento-scuro);font-style:italic;}
+.tema-maiolica .hero p.lead{color:var(--testo-tenue);}
+.tema-maiolica .hero-pannello{background:var(--bianco);color:var(--testo);border:2px solid var(--blu-marina);border-radius:18px;box-shadow:0 0 0 6px var(--avorio),0 0 0 8px var(--accento);}
+.tema-maiolica .hero-pannello h3{color:var(--blu-marina);}
+.tema-maiolica .stato-riga{border-bottom-color:var(--confine);}
+.tema-maiolica .btn{border-radius:999px;}
+.tema-maiolica .btn-secondario{color:var(--blu-marina);border-color:var(--blu-marina);}
+.tema-maiolica .btn-secondario:hover{background:var(--blu-marina);color:#fff;}
+.tema-maiolica .hero-punti .punto{border-color:var(--blu-marina);}
+.tema-maiolica .hero-punti .punto.attivo{background:var(--blu-marina);}
+.tema-maiolica .hero-punti{left:auto;right:calc(4% + min(21%,260px));transform:translateX(50%);z-index:4;}
+
+.tema-maiolica section{padding:80px 24px;}
+.tema-maiolica section.alt{background:var(--avorio-scuro);}
+.tema-maiolica .titolo-sezione{flex-direction:column;align-items:center;text-align:center;}
+.tema-maiolica .titolo-sezione h2{font-size:2.6rem;font-style:italic;}
+.tema-maiolica .titolo-sezione h2::after{content:"";display:block;width:120px;height:20px;margin:10px auto 0;background:var(--piastrella) center/20px 20px repeat-x;border-radius:4px;}
+.tema-maiolica .sotto-titolo{margin-left:auto;margin-right:auto;text-align:center;}
+.tema-maiolica [class^="scheda-"]{background:var(--bianco);border-radius:var(--radius);border:1px solid var(--confine);box-shadow:0 8px 24px rgba(19,55,122,.08);}
+.tema-maiolica .scheda-avviso{border-left:none;border-top:6px solid var(--blu-marina);}
+
+.tema-maiolica .fascia-foto{min-height:400px;margin:0 auto;max-width:1120px;border-radius:220px 220px 24px 24px;border:10px solid var(--bianco);outline:3px solid var(--blu-marina);}
+.tema-maiolica .fascia-foto::after{background:linear-gradient(0deg,rgba(19,55,122,.85),rgba(19,55,122,0) 60%);}
+.tema-maiolica .fascia-testo{text-align:center;}
+.tema-maiolica .fascia-frase{font-family:var(--serif);font-style:italic;margin:0 auto 8px;}
+.tema-maiolica footer{background:var(--blu-marina);border-top:22px solid transparent;border-image:var(--piastrella) 0 0 0 0 / 22px 0 0 0 round;}
+
+@media (max-width:780px){
+  .tema-maiolica .hero-galleria{position:relative;inset:auto;width:calc(100% - 32px);height:300px;margin:0 16px 24px;right:auto;}
+  .tema-maiolica .hero{flex-direction:column;}
+  .tema-maiolica .hero-grid{max-width:none;}
+  .tema-maiolica .hero-punti{right:50%;bottom:auto;top:280px;}
+  .tema-maiolica .fascia-foto{border-radius:120px 120px 16px 16px;margin:0 12px;}
+}

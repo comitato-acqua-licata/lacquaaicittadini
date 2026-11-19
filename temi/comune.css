@@ -1,0 +1,65 @@
+/* Parti condivise da tutte le versioni a tema */
+
+/* ===== Apertura con galleria ===== */
+.tema .hero{position:relative;overflow:hidden;isolation:isolate;min-height:min(88vh,760px);display:flex;align-items:center;background:#111;}
+.tema .hero > .wrap{position:relative;z-index:2;width:100%;}
+.hero-galleria{position:absolute;inset:0;z-index:0;}
+.hero-galleria .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;will-change:opacity,transform;}
+.hero-galleria .slide.attiva{opacity:1;}
+.hero-velo{position:absolute;inset:0;z-index:1;}
+
+/* Effetti */
+.hero-galleria[data-effetto="kenburns"] .slide{transition:opacity 2s ease;transform:scale(1.02);}
+.hero-galleria[data-effetto="kenburns"] .slide.attiva{animation:kenburns 9s ease-out forwards;}
+@keyframes kenburns{from{transform:scale(1.02) translate(0,0);}to{transform:scale(1.16) translate(-2%,-1.5%);}}
+
+.hero-galleria[data-effetto="scorrimento"] .slide{opacity:1;transform:translateX(100%);transition:transform 1.2s cubic-bezier(.7,0,.2,1);}
+.hero-galleria[data-effetto="scorrimento"] .slide.attiva{transform:translateX(0);}
+.hero-galleria[data-effetto="scorrimento"] .slide.uscita{transform:translateX(-30%);}
+
+.hero-galleria[data-effetto="scatto"] .slide{transition:none;filter:grayscale(1) contrast(1.35) brightness(.9);}
+.hero-galleria[data-effetto="scatto"] .slide.attiva{animation:scatto .5s steps(3) both;}
+@keyframes scatto{0%{clip-path:inset(0 0 100% 0);}100%{clip-path:inset(0 0 0 0);}}
+
+.hero-galleria[data-effetto="archi"] .slide{transition:opacity 1.4s ease, transform 6s ease;transform:scale(1.08);}
+.hero-galleria[data-effetto="archi"] .slide.attiva{transform:scale(1);}
+
+/* Punti di navigazione */
+.hero-punti{position:absolute;z-index:3;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:10px;}
+.hero-punti .punto{width:11px;height:11px;border-radius:50%;border:2px solid #fff;background:transparent;padding:0;cursor:pointer;opacity:.75;}
+.hero-punti .punto.attivo{background:#fff;opacity:1;}
+
+/* ===== Fasce fotografiche tra le sezioni ===== */
+.fascia-foto{position:relative;overflow:hidden;min-height:340px;display:flex;align-items:flex-end;color:#fff;}
+.fascia-sfondo{position:absolute;inset:-15% 0;background:var(--foto) center/cover no-repeat;transform:translateY(var(--sposta,0));will-change:transform;}
+.fascia-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.65) 100%);}
+.fascia-testo{position:relative;z-index:1;padding-top:40px;padding-bottom:36px;width:100%;}
+.fascia-frase{font-size:clamp(1.5rem,3.6vw,2.6rem);line-height:1.15;margin:0 0 8px;max-width:22ch;font-weight:700;}
+.fascia-didascalia{margin:0;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.85;}
+
+/* ===== Comparsa allo scorrimento ===== */
+.js-rivela .rivela{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease;}
+.js-rivela .rivela.visibile{opacity:1;transform:none;}
+
+/* ===== Crediti foto nel footer ===== */
+footer .crediti-foto{display:block;margin-top:28px;font-size:.78rem;}
+.crediti-foto summary{cursor:pointer;font-weight:600;}
+.crediti-foto ul{display:block;columns:2 320px;margin:12px 0 8px;}
+.crediti-foto li{margin:0 0 6px;break-inside:avoid;}
+
+/* ===== Selettore versioni (solo per confronto) ===== */
+.selettore-versioni{position:fixed;z-index:1000;left:12px;bottom:12px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;max-width:calc(100% - 100px);padding:6px 8px;border-radius:10px;background:rgba(15,20,30,.88);color:#fff;font:600 12px/1.2 system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.25);}
+.selettore-versioni a{color:#fff;padding:5px 8px;border-radius:6px;}
+.selettore-versioni a[aria-current]{background:#fff;color:#111;}
+
+@media (max-width:780px){
+  .tema .hero{min-height:auto;padding-top:64px;padding-bottom:72px;}
+  .fascia-foto{min-height:240px;}
+  .selettore-versioni{bottom:auto;top:8px;left:8px;font-size:11px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hero-galleria .slide,.hero-galleria .slide.attiva{animation:none!important;transition:opacity .4s!important;transform:none!important;}
+  .js-rivela .rivela{opacity:1;transform:none;transition:none;}
+  .fascia-sfondo{transform:none!important;}
+}

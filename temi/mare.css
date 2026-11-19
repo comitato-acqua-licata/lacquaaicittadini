@@ -1,0 +1,38 @@
+/* A — Mare e Faro: moderno, istituzionale, luminoso */
+:root{
+  --blu-marina:#0E3B5C; --blu-marina-scuro:#082A44;
+  --petrolio:#1C7CA6; --petrolio-chiaro:#5CC2E0;
+  --accento:#F2A541; --accento-scuro:#D98A1E;
+  --avorio:#FBF8F2; --avorio-scuro:#F1EADD;
+  --testo:#1D2B3A; --testo-tenue:#5E6E7E; --confine:#E3DACB;
+  --radius:14px;
+  --serif:'Fraunces', Georgia, serif; --sans:'Inter', system-ui, sans-serif;
+}
+body.tema-mare{background:var(--avorio);}
+.tema-mare header.principale{background:linear-gradient(180deg,#082A44,#0E3B5C);}
+.tema-mare header.principale::after{background:linear-gradient(90deg,#5CC2E0,#F2A541);height:3px;}
+.tema-mare nav.principale a{border-color:transparent;background:transparent;border-radius:999px;}
+.tema-mare nav.principale a:hover{background:rgba(255,255,255,.12);}
+
+.tema-mare .hero-velo{background:linear-gradient(100deg,rgba(8,42,68,.88) 0%,rgba(8,42,68,.55) 50%,rgba(8,42,68,.15) 100%);}
+.tema-mare .hero h2{font-size:clamp(2.2rem,4.6vw,3.6rem);font-weight:700;letter-spacing:-.01em;text-shadow:0 2px 20px rgba(0,0,0,.3);}
+.tema-mare .hero h2 em{color:var(--accento);font-style:italic;}
+.tema-mare .hero p.lead{color:#E3EEF5;font-size:1.15rem;}
+.tema-mare .hero-pannello{background:rgba(255,255,255,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.25);}
+.tema-mare .hero-pannello h3{color:#BFE6F2;}
+.tema-mare .btn{border-radius:999px;padding:13px 24px;}
+.tema-mare .btn-primario{color:#1D2B3A;box-shadow:0 8px 24px rgba(242,165,65,.35);}
+.tema-mare .btn:hover{transform:translateY(-2px);}
+
+.tema-mare section{padding:80px 24px;}
+.tema-mare section.alt{background:var(--avorio-scuro);}
+.tema-mare .titolo-sezione h2{font-size:2.1rem;font-weight:700;}
+.tema-mare .titolo-sezione .eyebrow{color:var(--petrolio);}
+.tema-mare .titolo-sezione .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--accento);vertical-align:middle;margin-right:10px;}
+.tema-mare [class^="scheda-"],.tema-mare .barra-comune-evidenza{border-radius:var(--radius);box-shadow:0 2px 0 rgba(14,59,92,.04),0 10px 30px rgba(14,59,92,.07);transition:transform .25s ease, box-shadow .25s ease;}
+.tema-mare [class^="scheda-"]:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(14,59,92,.13);}
+.tema-mare .scheda-avviso{border-left-width:5px;}
+
+.tema-mare .fascia-foto{min-height:420px;}
+.tema-mare .fascia-frase{font-family:var(--serif);font-weight:500;font-style:italic;}
+.tema-mare footer{background:#082A44;}

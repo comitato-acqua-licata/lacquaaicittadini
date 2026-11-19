@@ -1,0 +1,53 @@
+/* C — Onda: dinamico, giovane, tema chiaro/scuro automatico */
+:root{
+  --blu-marina:#06283D; --blu-marina-scuro:#031A29;
+  --petrolio:#0AA2B8; --petrolio-chiaro:#47E0D0;
+  --accento:#13C2C2; --accento-scuro:#0A9B9B;
+  --avorio:#F2FBFC; --avorio-scuro:#E2F5F7; --bianco:#FFFFFF;
+  --testo:#0B2233; --testo-tenue:#4E6878; --confine:#CFE7EC;
+  --radius:20px;
+  --serif:'Outfit', system-ui, sans-serif; --sans:'Inter', system-ui, sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--avorio:#061A26;--avorio-scuro:#0A2433;--bianco:#0F2E40;--testo:#E4F4F7;--testo-tenue:#9CB8C4;--confine:#1C4256;--blu-marina:#8FE3F0;}
+  body.tema-onda [class^="scheda-"],body.tema-onda .barra-comune-evidenza,body.tema-onda input,body.tema-onda textarea,body.tema-onda select{background:var(--bianco)!important;color:var(--testo);}
+}
+body.tema-onda{background:var(--avorio);}
+.tema-onda header.principale{position:sticky;top:0;z-index:50;background:rgba(3,26,41,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:padding .3s;}
+.tema-onda header.principale::after{background:linear-gradient(90deg,#47E0D0,#0AA2B8,#6A5CFF);}
+.tema-onda .logo-immagine{transition:height .3s;}
+.tema-onda header.principale.compatto .logo-immagine{height:48px;}
+.tema-onda header.principale.compatto .logo-testo h1{font-size:1.3rem;}
+.tema-onda header.principale.compatto .logo-testo p{display:none;}
+.tema-onda header.principale.compatto .header-interno{padding:8px 24px;gap:12px;}
+.tema-onda .logo-testo h1{transition:font-size .3s;}
+.tema-onda nav.principale a{border-radius:999px;border-color:rgba(71,224,208,.35);}
+
+.tema-onda .hero{min-height:min(92vh,820px);}
+.tema-onda .hero-velo{background:linear-gradient(160deg,rgba(3,26,41,.85) 0%,rgba(6,40,61,.4) 55%,rgba(10,162,184,.35) 100%);}
+.tema-onda .hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:90px;z-index:2;background:var(--avorio);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C 240 0 480 100 720 50 S 1200 0 1440 50 V90 H0Z'/%3E%3C/svg%3E") center/100% 100%;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C 240 0 480 100 720 50 S 1200 0 1440 50 V90 H0Z'/%3E%3C/svg%3E") center/100% 100%;
+  animation:onda 9s ease-in-out infinite alternate;}
+@keyframes onda{from{transform:scaleX(1.15) translateX(-4%);}to{transform:scaleX(1.15) translateX(4%);}}
+.tema-onda .hero-punti{bottom:100px;}
+.tema-onda .hero h2{font-size:clamp(2.4rem,5.4vw,4.4rem);font-weight:800;line-height:1.02;letter-spacing:-.02em;}
+.tema-onda .hero h2 em{background:linear-gradient(90deg,#47E0D0,#7FB7FF);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.tema-onda .hero-pannello{background:rgba(255,255,255,.1);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:24px;border:1px solid rgba(71,224,208,.4);}
+.tema-onda .hero-pannello h3{color:#47E0D0;}
+.tema-onda .hero-pannello strong{font-family:var(--serif);font-size:1.25rem;color:#fff;}
+.tema-onda .btn{border-radius:999px;}
+.tema-onda .btn-primario{background:linear-gradient(90deg,#13C2C2,#0A84B8);box-shadow:0 10px 30px rgba(19,194,194,.4);}
+.tema-onda .btn:hover{transform:translateY(-2px) scale(1.02);}
+
+.tema-onda section{padding:84px 24px;}
+.tema-onda .titolo-sezione h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:800;letter-spacing:-.02em;color:var(--blu-marina);}
+.tema-onda .titolo-sezione .eyebrow{display:inline-block;padding:4px 12px;border-radius:999px;background:rgba(19,194,194,.14);color:var(--petrolio);}
+.tema-onda [class^="scheda-"],.tema-onda .barra-comune-evidenza{border-radius:var(--radius);border:1px solid var(--confine);transition:transform .3s, box-shadow .3s;}
+.tema-onda [class^="scheda-"]:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(10,162,184,.18);}
+.tema-onda .scheda-avviso{border-left:6px solid var(--accento);}
+
+.tema-onda .fascia-foto{min-height:56vh;border-radius:32px;margin:0 16px;}
+.tema-onda .fascia-foto::after{background:linear-gradient(0deg,rgba(3,26,41,.8),rgba(10,162,184,.1));}
+.tema-onda .fascia-frase{font-family:var(--serif);font-weight:800;font-size:clamp(2rem,5vw,3.6rem);}
+.tema-onda footer{background:#031A29;}
