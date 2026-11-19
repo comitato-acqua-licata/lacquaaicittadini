@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa delle perdite idriche a Licata — L'acqua ai cittadini</title>
+<meta name="description" content="Mappa interattiva delle perdite idriche rilevate dal comitato civico L'acqua ai cittadini nella città di Licata. Segnala una nuova perdita scrivendo a info@lacquaaicittadini.it.">
+<meta name="theme-color" content="#3D5A8A">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://lacquaaicittadini.it/mappa_perdite.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Mappa delle perdite idriche a Licata">
+<meta property="og:description" content="Tutte le perdite idriche rilevate dal comitato a Licata, su una mappa interattiva. Hai una nuova segnalazione? Scrivici.">
+<meta property="og:url" content="https://lacquaaicittadini.it/mappa_perdite.html">
+<link rel="icon" type="image/png" href="img/logo-comitato.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css" integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css" integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<style>
+  :root{
+    --blu-marina:#3D5A8A;
+    --blu-marina-scuro:#2E4570;
+    --petrolio:#3B7CB8;
+    --petrolio-chiaro:#5B9BD5;
+    --accento:#4A7FD4;
+    --accento-scuro:#3864B0;
+    --avorio:#F4F8FB;
+    --avorio-scuro:#E8F0F7;
+    --bianco:#FFFFFF;
+    --testo:#2A3A4F;
+    --testo-tenue:#6B7E94;
+    --confine:#D7E3EE;
+    --critico:#C0564B;
+    --critico-bg:#FBEAE7;
+    --ok:#3F8F6F;
+    --ok-bg:#E9F5EC;
+    --radius:8px;
+    --serif:'Source Serif 4', Georgia, serif;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:var(--sans);background:var(--avorio);color:var(--testo);line-height:1.55;}
+  img{max-width:100%;display:block;}
+  a{color:var(--petrolio);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{outline:3px solid var(--accento);outline-offset:2px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  .skip-link{position:absolute;left:-999px;top:0;background:var(--accento);color:#fff;padding:10px 16px;z-index:9999;border-radius:0 0 6px 0;}
+  .skip-link:focus{left:0;}
+
+  /* ===== Header (stesso del sito principale) ===== */
+  header.principale{background:var(--blu-marina);color:#fff;position:relative;}
+  header.principale::after{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--petrolio) 0%,var(--petrolio-chiaro) 35%,var(--accento) 75%,var(--accento) 100%);}
+  .header-interno{display:flex;align-items:center;justify-content:center;padding:22px 24px;gap:28px;flex-wrap:wrap;}
+  .logo-blocco{display:flex;align-items:center;gap:16px;color:#fff;}
+  .logo-blocco:hover{text-decoration:none;}
+  .logo-immagine{height:110px;width:auto;flex-shrink:0;filter:drop-shadow(0 3px 10px rgba(0,0,0,.25));}
+  .logo-testo h1{font-family:var(--serif);font-size:2.4rem;font-weight:700;margin:0;letter-spacing:.2px;line-height:1.15;}
+  .logo-testo p{margin:6px 0 0;font-size:.95rem;color:#C9D6E4;letter-spacing:.5px;text-transform:uppercase;font-weight:600;}
+  nav.principale{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;width:100%;}
+  nav.principale a{color:#E7ECEE;font-size:.78rem;font-weight:600;padding:6px 10px;border-radius:var(--radius);border:1.5px solid rgba(255,255,255,.30);background:rgba(255,255,255,.07);transition:background .15s ease,border-color .15s ease;white-space:nowrap;}
+  nav.principale a:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.60);text-decoration:none;}
+  nav.principale a[aria-current="page"]{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.7);}
+
+  /* ===== Contenuto ===== */
+  main{padding:40px 24px 56px;}
+  .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--petrolio);display:block;margin-bottom:6px;}
+  h2.titolo{font-family:var(--serif);font-size:1.9rem;margin:0 0 8px;color:var(--blu-marina);line-height:1.2;}
+  .sotto-titolo{color:var(--testo-tenue);max-width:68ch;margin:0 0 24px;font-size:.98rem;}
+
+  .btn{display:inline-block;font-family:var(--sans);font-weight:600;font-size:.94rem;padding:12px 22px;border-radius:var(--radius);border:1.5px solid transparent;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;}
+  .btn:hover{text-decoration:none;}
+  .btn-primario{background:var(--accento);color:#fff;}
+  .btn-primario:hover{background:var(--accento-scuro);}
+
+  /* Riquadro invito alla segnalazione */
+  .invito{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;background:linear-gradient(135deg,var(--blu-marina),var(--blu-marina-scuro));color:#fff;border-radius:14px;padding:24px 28px;margin-bottom:24px;box-shadow:0 18px 40px rgba(46,69,112,.18);}
+  .invito h3{font-family:var(--serif);font-size:1.25rem;margin:0 0 8px;color:#fff;}
+  .invito p{margin:0 0 8px;color:#DCE7F3;font-size:.95rem;}
+  .invito ul{margin:0;padding-left:20px;color:#fff;font-size:.95rem;}
+  .invito li{margin:2px 0;}
+  .invito li strong{color:#fff;}
+  .invito .btn-primario{background:#fff;color:var(--blu-marina);white-space:nowrap;}
+  .invito .btn-primario:hover{background:var(--avorio-scuro);}
+
+  /* Contatori */
+  .contatori{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+  .contatore{background:#fff;border:1px solid var(--confine);border-radius:var(--radius);padding:14px 16px;}
+  .contatore strong{display:block;font-family:var(--serif);font-size:1.7rem;line-height:1.1;color:var(--blu-marina);}
+  .contatore span{font-size:.82rem;color:var(--testo-tenue);}
+  .contatore.rosso strong{color:var(--critico);}
+  .contatore.verde strong{color:var(--ok);}
+
+  /* Barra filtri */
+  .filtri{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
+  .chip-gruppo{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{background:#fff;border:1.5px solid var(--confine);padding:8px 16px;border-radius:999px;font-weight:600;font-size:.86rem;color:var(--testo-tenue);cursor:pointer;font-family:var(--sans);}
+  .chip[aria-pressed="true"]{background:var(--petrolio);border-color:var(--petrolio);color:#fff;}
+  .ricerca{flex:1 1 220px;max-width:340px;font:inherit;font-size:.92rem;padding:9px 14px;border:1.5px solid var(--confine);border-radius:var(--radius);background:#fff;color:var(--testo);}
+
+  /* Mappa + elenco */
+  .mappa-griglia{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;align-items:stretch;}
+  #mappa{height:620px;border-radius:var(--radius);border:1px solid var(--confine);background:var(--avorio-scuro);z-index:0;}
+  .elenco{background:#fff;border:1px solid var(--confine);border-radius:var(--radius);display:flex;flex-direction:column;height:620px;overflow:hidden;}
+  .elenco-titolo{padding:12px 16px;border-bottom:1px solid var(--confine);font-size:.82rem;font-weight:700;color:var(--blu-marina);text-transform:uppercase;letter-spacing:.5px;}
+  #elenco-lista{list-style:none;margin:0;padding:0;overflow-y:auto;flex:1;}
+  #elenco-lista li{border-bottom:1px solid var(--avorio-scuro);}
+  .voce{display:flex;width:100%;gap:10px;align-items:flex-start;text-align:left;background:none;border:0;padding:10px 16px;font:inherit;color:var(--testo);cursor:pointer;}
+  .voce:hover{background:var(--avorio);}
+  .voce .punto{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25);}
+  .punto.attiva{background:var(--critico);}
+  .punto.riparata{background:var(--ok);}
+  .voce .cod{display:block;font-size:.74rem;font-weight:700;color:var(--testo-tenue);letter-spacing:.3px;}
+  .voce .ind{display:block;font-size:.92rem;font-weight:600;line-height:1.3;}
+  .voce .meta{display:block;font-size:.78rem;color:var(--testo-tenue);}
+  .voce.senza-posizione{cursor:default;}
+  .voce.senza-posizione .punto{background:#fff;box-shadow:0 0 0 1.5px var(--testo-tenue);}
+  .vuoto{padding:24px 16px;color:var(--testo-tenue);font-size:.92rem;}
+
+  .legenda{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0 0;font-size:.85rem;color:var(--testo-tenue);}
+  .legenda span{display:inline-flex;align-items:center;gap:6px;}
+  .legenda i{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25);}
+  .nota-precisione{margin:14px 0 0;font-size:.86rem;color:var(--testo-tenue);max-width:80ch;}
+
+  /* Marker e popup */
+  .marker-perdita{width:22px;height:22px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.45);}
+  .marker-perdita.attiva{background:var(--critico);}
+  .marker-perdita.riparata{background:var(--ok);}
+  .marker-perdita.zona{border-style:dashed;border-color:#fff;}
+  .marker-cluster-small,.marker-cluster-medium,.marker-cluster-large{background-color:rgba(91,155,213,.55);}
+  .marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div{background-color:var(--blu-marina);color:#fff;font-weight:700;font-family:var(--sans);}
+  .leaflet-popup-content{font-family:var(--sans);font-size:.9rem;line-height:1.45;margin:14px 16px;min-width:210px;}
+  .popup-cod{font-size:.74rem;font-weight:700;letter-spacing:.4px;color:var(--testo-tenue);}
+  .popup-ind{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--blu-marina);margin:2px 0 8px;line-height:1.25;}
+  .badge{display:inline-block;font-size:.76rem;font-weight:700;padding:2px 10px;border-radius:999px;}
+  .badge.attiva{background:var(--critico-bg);color:var(--critico);}
+  .badge.riparata{background:var(--ok-bg);color:var(--ok);}
+  .popup-prec{margin:8px 0 10px;font-size:.8rem;color:var(--testo-tenue);}
+  .popup-link{font-size:.84rem;font-weight:600;}
+
+  #errore-caricamento{display:none;margin:0 0 16px;padding:12px 16px;border-radius:var(--radius);background:var(--critico-bg);border:1px solid var(--critico);color:var(--critico);font-size:.92rem;}
+
+  /* ===== Footer ===== */
+  footer{background:var(--blu-marina);color:#B9C6CE;padding:32px 24px 24px;font-size:.88rem;}
+  footer a{color:#B9C6CE;}
+  footer a:hover{color:#fff;}
+  .footer-base{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.8rem;color:#9FB3BC;}
+
+  @media (max-width:900px){
+    .mappa-griglia{grid-template-columns:1fr;}
+    #mappa{height:460px;}
+    .elenco{height:380px;}
+    .contatori{grid-template-columns:repeat(2,1fr);}
+    .invito{grid-template-columns:1fr;padding:20px;}
+  }
+  @media (max-width:780px){
+    .header-interno{flex-direction:column;text-align:center;padding:18px 16px;gap:14px;}
+    .logo-blocco{flex-direction:column;gap:10px;}
+    .logo-immagine{height:84px;}
+    .logo-testo h1{font-size:1.8rem;}
+    main{padding:28px 16px 40px;}
+    nav.principale a{padding:10px 14px;font-size:.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<a href="#contenuto" class="skip-link">Vai al contenuto</a>
+
+<header class="principale">
+  <div class="header-interno wrap" style="padding-left:0;padding-right:0;">
+    <a class="logo-blocco" href="index.html" aria-label="Torna alla home del sito">
+      <img class="logo-immagine" src="img/logo-comitato.png" alt="Logo del comitato L'acqua ai cittadini" width="211" height="220">
+      <div class="logo-testo">
+        <h1>L'acqua ai cittadini</h1>
+        <p>Comitato civico — Licata (AG)</p>
+      </div>
+    </a>
+    <nav class="principale" aria-label="Navigazione principale">
+      <a href="index.html">← Torna al sito</a>
+      <a href="index.html#avvisi">Avvisi AICA</a>
+      <a href="index.html#turni">Turni idrici</a>
+      <a href="mappa_perdite.html" aria-current="page">Mappa perdite</a>
+      <a href="index.html#partecipa">Segnala e partecipa</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenuto">
+  <div class="wrap">
+    <span class="eyebrow">Licata (AG) — Registro del comitato</span>
+    <h2 class="titolo">Mappa delle perdite idriche</h2>
+    <p class="sotto-titolo">Le perdite d'acqua rilevate dal comitato nella città di Licata. Clicca su un punto della mappa o su una voce dell'elenco per vedere i dettagli. Registro aggiornato al <strong id="data-aggiornamento">—</strong>.</p>
+
+    <div class="invito" id="invito">
+      <div>
+        <h3>Hai visto una perdita che non è in mappa?</h3>
+        <p>Scrivi a <a href="mailto:info@lacquaaicittadini.it?subject=Segnalazione%20perdita%20idrica%20-%20Licata" style="color:#fff;text-decoration:underline;font-weight:600;">info@lacquaaicittadini.it</a> indicando:</p>
+        <ul>
+          <li>la <strong>via</strong>;</li>
+          <li>il <strong>numero civico</strong> — è l'informazione più importante per localizzare la perdita;</li>
+          <li>una <strong>foto o un video</strong> della perdita.</li>
+        </ul>
+      </div>
+      <a class="btn btn-primario" id="btn-segnala" href="#">Invia una segnalazione</a>
+    </div>
+
+    <div id="errore-caricamento" role="alert"></div>
+
+    <div class="contatori" aria-live="polite">
+      <div class="contatore"><strong id="cont-totale">—</strong><span>perdite registrate</span></div>
+      <div class="contatore rosso"><strong id="cont-attive">—</strong><span>da riparare</span></div>
+      <div class="contatore verde"><strong id="cont-riparate">—</strong><span>riparate</span></div>
+      <div class="contatore"><strong id="cont-senza">—</strong><span>posizione da definire</span></div>
+    </div>
+
+    <div class="filtri">
+      <div class="chip-gruppo" role="group" aria-label="Filtra per stato">
+        <button type="button" class="chip" data-filtro="tutte" aria-pressed="true">Tutte</button>
+        <button type="button" class="chip" data-filtro="attiva" aria-pressed="false">Da riparare</button>
+        <button type="button" class="chip" data-filtro="riparata" aria-pressed="false">Riparate</button>
+      </div>
+      <input type="search" class="ricerca" id="ricerca" placeholder="Cerca una via o un codice…" aria-label="Cerca una via o un codice" autocomplete="off">
+    </div>
+
+    <div class="mappa-griglia">
+      <div id="mappa" role="application" aria-label="Mappa interattiva delle perdite idriche di Licata"></div>
+      <aside class="elenco" aria-label="Elenco delle perdite">
+        <div class="elenco-titolo"><span id="elenco-conteggio">—</span></div>
+        <ul id="elenco-lista"></ul>
+      </aside>
+    </div>
+
+    <div class="legenda" aria-hidden="true">
+      <span><i style="background:var(--critico)"></i>Da riparare</span>
+      <span><i style="background:var(--ok)"></i>Riparata</span>
+      <span><i style="background:var(--petrolio-chiaro)"></i>Più perdite vicine (clicca per ingrandire)</span>
+    </div>
+    <p class="nota-precisione">I punti indicano la posizione <strong>indicativa</strong> della via o della zona, non il civico esatto. Il numero civico esatto è riportato nella scheda di ogni perdita. Per le voci elencate come «posizione da definire» stiamo ancora verificando l'ubicazione.</p>
+
+    <noscript><p class="nota-precisione"><strong>Per vedere la mappa serve JavaScript.</strong> In alternativa scrivi a <a href="mailto:info@lacquaaicittadini.it">info@lacquaaicittadini.it</a> per ricevere l'elenco delle perdite.</p></noscript>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-base">
+    <span>© <span id="anno-corrente"></span> Comitato civico L'acqua ai cittadini</span>
+    <span>Segnalazioni: <a href="mailto:info@lacquaaicittadini.it">info@lacquaaicittadini.it</a></span>
+    <span>Mappa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js" integrity="sha384-eXVCORTRlv4FUUgS/xmOyr66XBVraen8ATNLMESp92FKXLAMiKkerixTiBvXriZr" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+(function(){
+  'use strict';
+
+  var EMAIL = 'info@lacquaaicittadini.it';
+  var LICATA = [37.1034, 13.9376];
+  var STATI = { attiva: 'Da riparare', riparata: 'Riparata' };
+  var PRECISIONE = {
+    civico: 'Posizione sul civico indicato.',
+    via: 'Posizione indicativa lungo la via: il civico esatto è quello riportato sopra.',
+    zona: 'Posizione approssimata della zona o località indicata.'
+  };
+
+  document.getElementById('anno-corrente').textContent = new Date().getFullYear();
+
+  /* ---------- mailto ---------- */
+  function mailto(oggetto, corpo) {
+    return 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(oggetto) + '&body=' + encodeURIComponent(corpo);
+  }
+  document.getElementById('btn-segnala').href = mailto(
+    'Segnalazione perdita idrica - Licata',
+    'Via: \nNumero civico (importante): \nDescrizione (facoltativa): \n\nAllego foto o video della perdita.'
+  );
+
+  /* ---------- elementi DOM ---------- */
+  function el(tag, cls, testo) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (testo != null) e.textContent = testo;
+    return e;
+  }
+  function mostraErrore(msg) {
+    var box = document.getElementById('errore-caricamento');
+    box.textContent = msg;
+    box.style.display = 'block';
+  }
+
+  /* ---------- mappa ---------- */
+  if (typeof L === 'undefined') {
+    mostraErrore('Non è stato possibile caricare la mappa. Controlla la connessione e ricarica la pagina, oppure scrivi a ' + EMAIL + '.');
+    return;
+  }
+  var mappa = L.map('mappa', { center: LICATA, zoom: 14, minZoom: 11, maxZoom: 19, scrollWheelZoom: true });
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(mappa);
+  var cluster = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40, spiderfyOnMaxZoom: true });
+  mappa.addLayer(cluster);
+
+  var dati = [];          // tutte le perdite
+  var marker = {};        // id -> marker Leaflet
+  var filtro = 'tutte';
+  var testoRicerca = '';
+
+  function popup(p) {
+    var box = el('div');
+    box.appendChild(el('div', 'popup-cod', p.id));
+    box.appendChild(el('div', 'popup-ind', p.indirizzo));
+    box.appendChild(el('span', 'badge ' + p.stato, STATI[p.stato] || p.stato));
+    if (p.precisione && PRECISIONE[p.precisione]) {
+      var testoPrec = PRECISIONE[p.precisione];
+      if (p.precisione === 'via') {
+        testoPrec = /\d/.test(p.indirizzo)
+          ? 'Posizione indicativa lungo la via: il civico esatto è quello indicato sopra.'
+          : 'Posizione indicativa lungo la via. Il civico non è indicato nel registro.';
+      }
+      box.appendChild(el('p', 'popup-prec', testoPrec));
+    }
+    var a = el('a', 'popup-link', 'Segnala un aggiornamento su questa perdita →');
+    a.href = mailto('Aggiornamento perdita ' + p.id + ' - ' + p.indirizzo,
+      'Perdita ' + p.id + ' (' + p.indirizzo + ')\n\nAggiornamento: \n\nAllego foto o video.');
+    box.appendChild(a);
+    return box;
+  }
+
+  function creaMarker(p) {
+    var icona = L.divIcon({
+      className: '',
+      html: '<div class="marker-perdita ' + p.stato + (p.precisione === 'zona' ? ' zona' : '') + '"></div>',
+      iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -12]
+    });
+    var m = L.marker([p.lat, p.lng], { icon: icona, title: p.id + ' — ' + p.indirizzo, alt: p.id + ' ' + p.indirizzo, keyboard: true });
+    m.bindPopup(function () { return popup(p); });
+    return m;
+  }
+
+  function visibile(p) {
+    if (filtro !== 'tutte' && p.stato !== filtro) return false;
+    if (testoRicerca) {
+      var t = (p.id + ' ' + p.indirizzo).toLowerCase();
+      if (t.indexOf(testoRicerca) === -1) return false;
+    }
+    return true;
+  }
+
+  function apri(p) {
+    var m = marker[p.id];
+    if (!m) return;
+    cluster.zoomToShowLayer(m, function () { m.openPopup(); });
+    document.getElementById('mappa').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function aggiorna() {
+    var lista = dati.filter(visibile);
+    var ul = document.getElementById('elenco-lista');
+    ul.textContent = '';
+    cluster.clearLayers();
+    lista.forEach(function (p) {
+      if (marker[p.id]) cluster.addLayer(marker[p.id]);
+      var li = el('li');
+      var b = el('button', 'voce' + (p.lat == null ? ' senza-posizione' : ''));
+      b.type = 'button';
+      b.appendChild(el('span', 'punto ' + p.stato));
+      var txt = el('span');
+      txt.appendChild(el('span', 'cod', p.id));
+      txt.appendChild(el('span', 'ind', p.indirizzo));
+      txt.appendChild(el('span', 'meta', (STATI[p.stato] || p.stato) + (p.lat == null ? ' · posizione da definire' : '')));
+      b.appendChild(txt);
+      if (p.lat != null) b.addEventListener('click', function () { apri(p); });
+      else b.setAttribute('aria-disabled', 'true');
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    if (!lista.length) ul.appendChild(el('li', 'vuoto', 'Nessuna perdita corrisponde alla ricerca.'));
+    document.getElementById('elenco-conteggio').textContent = lista.length + (lista.length === 1 ? ' perdita' : ' perdite');
+    var conPos = lista.filter(function (p) { return p.lat != null; });
+    if (conPos.length && cluster.getLayers().length) {
+      mappa.fitBounds(cluster.getBounds().pad(0.15), { maxZoom: 16 });
+    }
+  }
+
+  /* ---------- filtri ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (c) {
+    c.addEventListener('click', function () {
+      filtro = c.getAttribute('data-filtro');
+      Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (x) {
+        x.setAttribute('aria-pressed', x === c ? 'true' : 'false');
+      });
+      aggiorna();
+    });
+  });
+  document.getElementById('ricerca').addEventListener('input', function (e) {
+    testoRicerca = e.target.value.trim().toLowerCase();
+    aggiorna();
+  });
+
+  /* ---------- caricamento dati ---------- */
+  fetch('perdite/perdite.json', { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (json) {
+      dati = json.perdite || [];
+      dati.forEach(function (p) { if (p.lat != null && p.lng != null) marker[p.id] = creaMarker(p); });
+      var attive = dati.filter(function (p) { return p.stato === 'attiva'; }).length;
+      var riparate = dati.filter(function (p) { return p.stato === 'riparata'; }).length;
+      var senza = dati.filter(function (p) { return p.lat == null; }).length;
+      document.getElementById('cont-totale').textContent = dati.length;
+      document.getElementById('cont-attive').textContent = attive;
+      document.getElementById('cont-riparate').textContent = riparate;
+      document.getElementById('cont-senza').textContent = senza;
+      if (json.aggiornato) {
+        var d = new Date(json.aggiornato + 'T12:00:00');
+        document.getElementById('data-aggiornamento').textContent = isNaN(d) ? json.aggiornato : d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+      aggiorna();
+    })
+    .catch(function (err) {
+      mostraErrore('Non è stato possibile caricare l\'elenco delle perdite (' + err.message + '). Riprova più tardi o scrivi a ' + EMAIL + '.');
+    });
+})();
+</script>
+</body>
+</html>

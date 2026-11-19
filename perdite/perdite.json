@@ -1,0 +1,679 @@
+{
+ "aggiornato": "2026-11-19",
+ "perdite": [
+  {
+   "id": "LIC-001",
+   "indirizzo": "Via Alpi",
+   "stato": "attiva",
+   "lat": 37.10559,
+   "lng": 13.93144,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-002",
+   "indirizzo": "Via Santander",
+   "stato": "attiva",
+   "lat": 37.10375,
+   "lng": 13.9384,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-003",
+   "indirizzo": "Campetti Santa Sofia",
+   "stato": "attiva",
+   "lat": 37.11899,
+   "lng": 13.95573,
+   "precisione": "zona",
+   "nota": "Posizionata sull'area sportiva Santa Sofia"
+  },
+  {
+   "id": "LIC-004",
+   "indirizzo": "Via Adige",
+   "stato": "attiva",
+   "lat": 37.10935,
+   "lng": 13.93077,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-005",
+   "indirizzo": "Via Don Minzoni",
+   "stato": "attiva",
+   "lat": 37.1157,
+   "lng": 13.96042,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-006",
+   "indirizzo": "Via Gela, 313",
+   "stato": "attiva",
+   "lat": 37.11132,
+   "lng": 13.95288,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-007",
+   "indirizzo": "Via Pontillo",
+   "stato": "attiva",
+   "lat": 37.10281,
+   "lng": 13.93553,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-008",
+   "indirizzo": "Viale dei Lilium",
+   "stato": "attiva",
+   "lat": 37.11485,
+   "lng": 13.95448,
+   "precisione": "zona"
+  },
+  {
+   "id": "LIC-009",
+   "indirizzo": "Via Bottego",
+   "stato": "attiva",
+   "lat": 37.11051,
+   "lng": 13.95091,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-010",
+   "indirizzo": "Villaggio Agricolo",
+   "stato": "attiva",
+   "lat": 37.11155,
+   "lng": 13.95648,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-011",
+   "indirizzo": "Via Cesare Battisti",
+   "stato": "riparata",
+   "lat": 37.1077,
+   "lng": 13.93373,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-012",
+   "indirizzo": "Contrada Olivastra",
+   "stato": "attiva",
+   "lat": null,
+   "lng": null,
+   "precisione": null,
+   "nota": "Posizione da definire"
+  },
+  {
+   "id": "LIC-013",
+   "indirizzo": "Via Appennini 19",
+   "stato": "attiva",
+   "lat": 37.10689,
+   "lng": 13.92981,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-014",
+   "indirizzo": "Via Appennini 25",
+   "stato": "attiva",
+   "lat": 37.10689,
+   "lng": 13.92981,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-015",
+   "indirizzo": "Via Brenta",
+   "stato": "attiva",
+   "lat": 37.10853,
+   "lng": 13.93188,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-016",
+   "indirizzo": "Via Gela 150",
+   "stato": "attiva",
+   "lat": 37.11132,
+   "lng": 13.95288,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-017",
+   "indirizzo": "Cortile Giarratano, 12",
+   "stato": "attiva",
+   "lat": 37.10298,
+   "lng": 13.93523,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-018",
+   "indirizzo": "Piazza Duomo",
+   "stato": "attiva",
+   "lat": 37.09929,
+   "lng": 13.93998,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-019",
+   "indirizzo": "Stadio Dino Liotta",
+   "stato": "attiva",
+   "lat": 37.10256,
+   "lng": 13.94303,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-020",
+   "indirizzo": "Via Piave",
+   "stato": "attiva",
+   "lat": 37.10453,
+   "lng": 13.93306,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-021",
+   "indirizzo": "Via Armando Diaz, 115",
+   "stato": "attiva",
+   "lat": 37.10581,
+   "lng": 13.94658,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-022",
+   "indirizzo": "Via San Paolo, 32",
+   "stato": "attiva",
+   "lat": 37.10217,
+   "lng": 13.93599,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-023",
+   "indirizzo": "Via Gaetano De Pasquali 1",
+   "stato": "attiva",
+   "lat": 37.10634,
+   "lng": 13.93621,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-024",
+   "indirizzo": "Via Ruffo di Calabria, 10",
+   "stato": "attiva",
+   "lat": 37.11022,
+   "lng": 13.94801,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-025",
+   "indirizzo": "Via Nazario Sauro 25",
+   "stato": "attiva",
+   "lat": 37.10164,
+   "lng": 13.94057,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-026",
+   "indirizzo": "Via S. Salvatore Burgio, 27",
+   "stato": "riparata",
+   "lat": 37.10208,
+   "lng": 13.93475,
+   "precisione": "via",
+   "nota": "Posizionata su Via Soldato Salvatore Burgio"
+  },
+  {
+   "id": "LIC-027",
+   "indirizzo": "Piazza Cardinale Tommasi, 5",
+   "stato": "riparata",
+   "lat": null,
+   "lng": null,
+   "precisione": null,
+   "nota": "Posizione da definire"
+  },
+  {
+   "id": "LIC-028",
+   "indirizzo": "Via Grangela",
+   "stato": "riparata",
+   "lat": 37.10103,
+   "lng": 13.93677,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-029",
+   "indirizzo": "Via D’Arrigo 15",
+   "stato": "attiva",
+   "lat": 37.10172,
+   "lng": 13.94249,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-030",
+   "indirizzo": "Via Marocco 1",
+   "stato": "attiva",
+   "lat": 37.10152,
+   "lng": 13.94336,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-031",
+   "indirizzo": "Via Montebello 5",
+   "stato": "attiva",
+   "lat": 37.10616,
+   "lng": 13.94314,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-032",
+   "indirizzo": "Corso Italia 198",
+   "stato": "attiva",
+   "lat": 37.10944,
+   "lng": 13.933,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-033",
+   "indirizzo": "Via Cannarozzo, 10",
+   "stato": "attiva",
+   "lat": 37.09956,
+   "lng": 13.93891,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-034",
+   "indirizzo": "Via Montenero, 7",
+   "stato": "attiva",
+   "lat": 37.10758,
+   "lng": 13.9443,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-035",
+   "indirizzo": "Corso Italia 156",
+   "stato": "attiva",
+   "lat": 37.10944,
+   "lng": 13.933,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-036",
+   "indirizzo": "Via Campobello, 109",
+   "stato": "attiva",
+   "lat": 37.10995,
+   "lng": 13.93139,
+   "precisione": "civico"
+  },
+  {
+   "id": "LIC-037",
+   "indirizzo": "Villaggio dei Fiori – palazzina Garofani",
+   "stato": "attiva",
+   "lat": 37.11485,
+   "lng": 13.95448,
+   "precisione": "zona"
+  },
+  {
+   "id": "LIC-038",
+   "indirizzo": "Via Napoli, 21",
+   "stato": "attiva",
+   "lat": 37.10497,
+   "lng": 13.93444,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-039",
+   "indirizzo": "Piazza Sicilia, 7",
+   "stato": "attiva",
+   "lat": null,
+   "lng": null,
+   "precisione": null,
+   "nota": "Posizione da definire"
+  },
+  {
+   "id": "LIC-040",
+   "indirizzo": "Via Gelone, 18",
+   "stato": "attiva",
+   "lat": 37.10856,
+   "lng": 13.94429,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-041",
+   "indirizzo": "Via Dora, 16",
+   "stato": "attiva",
+   "lat": 37.10885,
+   "lng": 13.93148,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-042",
+   "indirizzo": "Via Marocco 2",
+   "stato": "attiva",
+   "lat": 37.10152,
+   "lng": 13.94336,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-043",
+   "indirizzo": "Via Sergente Castronovo, 16",
+   "stato": "attiva",
+   "lat": 37.10632,
+   "lng": 13.95459,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-044",
+   "indirizzo": "Contrada Giannotta",
+   "stato": "riparata",
+   "lat": null,
+   "lng": null,
+   "precisione": null,
+   "nota": "Posizione da definire"
+  },
+  {
+   "id": "LIC-045",
+   "indirizzo": "Via Cairo, 25",
+   "stato": "attiva",
+   "lat": 37.10343,
+   "lng": 13.94181,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-046",
+   "indirizzo": "Via R. Pilo, 14",
+   "stato": "riparata",
+   "lat": 37.10597,
+   "lng": 13.93569,
+   "precisione": "via",
+   "nota": "Posizionata su Via Rosolino Pilo"
+  },
+  {
+   "id": "LIC-047",
+   "indirizzo": "Ponte Federico II",
+   "stato": "attiva",
+   "lat": 37.10442,
+   "lng": 13.94269,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-048",
+   "indirizzo": "Via Benedetto Croce, 38",
+   "stato": "attiva",
+   "lat": 37.10554,
+   "lng": 13.93079,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-049",
+   "indirizzo": "Perdita vicino ristorante Sombrero",
+   "stato": "riparata",
+   "lat": 37.11339,
+   "lng": 13.96966,
+   "precisione": "zona",
+   "nota": "Posizionata sul ristorante El Sombrero, SS 115"
+  },
+  {
+   "id": "LIC-050",
+   "indirizzo": "Contrada Montesole",
+   "stato": "riparata",
+   "lat": 37.10161,
+   "lng": 13.90251,
+   "precisione": "zona",
+   "nota": "Posizionata sulla località Montesole"
+  },
+  {
+   "id": "LIC-051",
+   "indirizzo": "Via Sergente Castronovo, 5",
+   "stato": "attiva",
+   "lat": 37.10632,
+   "lng": 13.95459,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-052",
+   "indirizzo": "Corso F. Re Capriata, 32",
+   "stato": "attiva",
+   "lat": 37.10576,
+   "lng": 13.93458,
+   "precisione": "via",
+   "nota": "Posizionata su Corso Filippo Re Capriata"
+  },
+  {
+   "id": "LIC-053",
+   "indirizzo": "Via Generale Luigi Cadorna, 27",
+   "stato": "attiva",
+   "lat": 37.10589,
+   "lng": 13.94614,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-054",
+   "indirizzo": "Piazza Progresso, 18",
+   "stato": "attiva",
+   "lat": 37.10179,
+   "lng": 13.93728,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-055",
+   "indirizzo": "Contrada Chiavarello",
+   "stato": "attiva",
+   "lat": null,
+   "lng": null,
+   "precisione": null,
+   "nota": "Posizione da definire"
+  },
+  {
+   "id": "LIC-056",
+   "indirizzo": "Zona Loreto",
+   "stato": "attiva",
+   "lat": 37.10622,
+   "lng": 13.93146,
+   "precisione": "zona",
+   "nota": "Posizionata sul quartiere Loreto"
+  },
+  {
+   "id": "LIC-057",
+   "indirizzo": "Via Gelone",
+   "stato": "attiva",
+   "lat": 37.10856,
+   "lng": 13.94429,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-058",
+   "indirizzo": "Via Salso, 40",
+   "stato": "riparata",
+   "lat": 37.13664,
+   "lng": 13.92795,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-059",
+   "indirizzo": "Via Arno, 6",
+   "stato": "attiva",
+   "lat": 37.10812,
+   "lng": 13.93233,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-060",
+   "indirizzo": "Contrada Olivastro",
+   "stato": "attiva",
+   "lat": null,
+   "lng": null,
+   "precisione": null,
+   "nota": "Posizione da definire"
+  },
+  {
+   "id": "LIC-061",
+   "indirizzo": "Via Oreto Grata, 38",
+   "stato": "attiva",
+   "lat": null,
+   "lng": null,
+   "precisione": null,
+   "nota": "Posizione da definire"
+  },
+  {
+   "id": "LIC-062",
+   "indirizzo": "Via Gela, interno 32",
+   "stato": "attiva",
+   "lat": 37.11132,
+   "lng": 13.95288,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-063",
+   "indirizzo": "Via Cotturo, 76",
+   "stato": "attiva",
+   "lat": 37.1032,
+   "lng": 13.9345,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-064",
+   "indirizzo": "Via Cotturo, 78",
+   "stato": "attiva",
+   "lat": 37.1032,
+   "lng": 13.9345,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-065",
+   "indirizzo": "Via Salso, 12",
+   "stato": "attiva",
+   "lat": 37.13664,
+   "lng": 13.92795,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-066",
+   "indirizzo": "Via Cavour, 42",
+   "stato": "attiva",
+   "lat": 37.10753,
+   "lng": 13.93435,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-067",
+   "indirizzo": "Via Oreto Grata",
+   "stato": "attiva",
+   "lat": null,
+   "lng": null,
+   "precisione": null,
+   "nota": "Posizione da definire"
+  },
+  {
+   "id": "LIC-068",
+   "indirizzo": "Via delle Zagare Villaggio dei Fiori",
+   "stato": "attiva",
+   "lat": 37.11646,
+   "lng": 13.95398,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-069",
+   "indirizzo": "Via Dora, 6",
+   "stato": "attiva",
+   "lat": 37.10885,
+   "lng": 13.93148,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-070",
+   "indirizzo": "Via dei Gradioli Villaggio dei Fiori",
+   "stato": "attiva",
+   "lat": 37.11485,
+   "lng": 13.95448,
+   "precisione": "zona"
+  },
+  {
+   "id": "LIC-071",
+   "indirizzo": "Via Brennero, 30",
+   "stato": "attiva",
+   "lat": 37.10683,
+   "lng": 13.93046,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-072",
+   "indirizzo": "Strada panoramica per Mollarella",
+   "stato": "attiva",
+   "lat": 37.10322,
+   "lng": 13.88589,
+   "precisione": "zona",
+   "nota": "Posizionata sulla località Mollarella"
+  },
+  {
+   "id": "LIC-073",
+   "indirizzo": "Via Salso int. A",
+   "stato": "attiva",
+   "lat": 37.13664,
+   "lng": 13.92795,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-074",
+   "indirizzo": "Via Salso, 20",
+   "stato": "attiva",
+   "lat": 37.13664,
+   "lng": 13.92795,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-075",
+   "indirizzo": "Via Gela int. 26",
+   "stato": "attiva",
+   "lat": 37.11132,
+   "lng": 13.95288,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-076",
+   "indirizzo": "Piazza Giacomo Matteotti, 11",
+   "stato": "attiva",
+   "lat": 37.10119,
+   "lng": 13.93749,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-077",
+   "indirizzo": "Via Monte Bianco, 12",
+   "stato": "attiva",
+   "lat": 37.10728,
+   "lng": 13.94544,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-078",
+   "indirizzo": "Via Morgantina, 28",
+   "stato": "attiva",
+   "lat": 37.11695,
+   "lng": 13.9564,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-079",
+   "indirizzo": "Via Don G. Dainotto, 80",
+   "stato": "attiva",
+   "lat": 37.11171,
+   "lng": 13.92804,
+   "precisione": "via",
+   "nota": "Posizionata su Via Don Giacomo Dainotto"
+  },
+  {
+   "id": "LIC-080",
+   "indirizzo": "Via E. Aquilera, 29",
+   "stato": "attiva",
+   "lat": 37.11055,
+   "lng": 13.92671,
+   "precisione": "via",
+   "nota": "Posizionata su Via Manuele Aquilera"
+  },
+  {
+   "id": "LIC-081",
+   "indirizzo": "Via Gela, 28",
+   "stato": "attiva",
+   "lat": 37.11132,
+   "lng": 13.95288,
+   "precisione": "via"
+  },
+  {
+   "id": "LIC-082",
+   "indirizzo": "Via Carso, 49",
+   "stato": "attiva",
+   "lat": 37.10584,
+   "lng": 13.9446,
+   "precisione": "via"
+  }
+ ]
+}
