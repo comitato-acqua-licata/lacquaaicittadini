@@ -40,6 +40,9 @@
     --critico-bg:#FBEAE7;
     --ok:#3F8F6F;
     --ok-bg:#E9F5EC;
+    --ambra:#C98A1B;
+    --ambra-bg:#FFF3D6;
+    --ambra-testo:#7A5208;
     --radius:8px;
     --serif:'Source Serif 4', Georgia, serif;
     --sans:'Inter', system-ui, -apple-system, sans-serif;
@@ -71,9 +74,10 @@
   nav.principale a[aria-current="page"]{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.7);}
 
   /* ===== Contenuto ===== */
-  main{padding:40px 24px 56px;}
+  main{padding:40px 0 56px;}
   .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--petrolio);display:block;margin-bottom:6px;}
   h2.titolo{font-family:var(--serif);font-size:1.9rem;margin:0 0 8px;color:var(--blu-marina);line-height:1.2;}
+  h3.sottotitolo-sez{font-family:var(--serif);font-size:1.35rem;margin:0 0 6px;color:var(--blu-marina);}
   .sotto-titolo{color:var(--testo-tenue);max-width:68ch;margin:0 0 24px;font-size:.98rem;}
 
   .btn{display:inline-block;font-family:var(--sans);font-weight:600;font-size:.94rem;padding:12px 22px;border-radius:var(--radius);border:1.5px solid transparent;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;}
@@ -87,7 +91,6 @@
   .invito p{margin:0 0 8px;color:#DCE7F3;font-size:.95rem;}
   .invito ul{margin:0;padding-left:20px;color:#fff;font-size:.95rem;}
   .invito li{margin:2px 0;}
-  .invito li strong{color:#fff;}
   .invito .btn-primario{background:#fff;color:var(--blu-marina);white-space:nowrap;}
   .invito .btn-primario:hover{background:var(--avorio-scuro);}
 
@@ -98,55 +101,67 @@
   .contatore span{font-size:.82rem;color:var(--testo-tenue);}
   .contatore.rosso strong{color:var(--critico);}
   .contatore.verde strong{color:var(--ok);}
+  .contatore.ambra strong{color:var(--ambra);}
 
-  /* Barra filtri */
-  .filtri{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
+  /* Filtri */
+  .filtri{display:flex;gap:12px 20px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
   .chip-gruppo{display:flex;gap:8px;flex-wrap:wrap;}
   .chip{background:#fff;border:1.5px solid var(--confine);padding:8px 16px;border-radius:999px;font-weight:600;font-size:.86rem;color:var(--testo-tenue);cursor:pointer;font-family:var(--sans);}
   .chip[aria-pressed="true"]{background:var(--petrolio);border-color:var(--petrolio);color:#fff;}
-  .ricerca{flex:1 1 220px;max-width:340px;font:inherit;font-size:.92rem;padding:9px 14px;border:1.5px solid var(--confine);border-radius:var(--radius);background:#fff;color:var(--testo);}
+  .chip.chip-ambra{border-color:var(--ambra);color:var(--ambra-testo);background:var(--ambra-bg);}
+  .chip.chip-ambra[aria-pressed="true"]{background:var(--ambra);border-color:var(--ambra);color:#fff;}
+  .ricerca{flex:1 1 240px;max-width:360px;font:inherit;font-size:.92rem;padding:9px 14px;border:1.5px solid var(--confine);border-radius:var(--radius);background:#fff;color:var(--testo);}
 
-  /* Mappa + elenco */
-  .mappa-griglia{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;align-items:stretch;}
-  #mappa{height:620px;border-radius:var(--radius);border:1px solid var(--confine);background:var(--avorio-scuro);z-index:0;}
-  .elenco{background:#fff;border:1px solid var(--confine);border-radius:var(--radius);display:flex;flex-direction:column;height:620px;overflow:hidden;}
-  .elenco-titolo{padding:12px 16px;border-bottom:1px solid var(--confine);font-size:.82rem;font-weight:700;color:var(--blu-marina);text-transform:uppercase;letter-spacing:.5px;}
-  #elenco-lista{list-style:none;margin:0;padding:0;overflow-y:auto;flex:1;}
-  #elenco-lista li{border-bottom:1px solid var(--avorio-scuro);}
-  .voce{display:flex;width:100%;gap:10px;align-items:flex-start;text-align:left;background:none;border:0;padding:10px 16px;font:inherit;color:var(--testo);cursor:pointer;}
-  .voce:hover{background:var(--avorio);}
-  .voce .punto{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25);}
-  .punto.attiva{background:var(--critico);}
-  .punto.riparata{background:var(--ok);}
-  .voce .cod{display:block;font-size:.74rem;font-weight:700;color:var(--testo-tenue);letter-spacing:.3px;}
-  .voce .ind{display:block;font-size:.92rem;font-weight:600;line-height:1.3;}
-  .voce .meta{display:block;font-size:.78rem;color:var(--testo-tenue);}
-  .voce.senza-posizione{cursor:default;}
-  .voce.senza-posizione .punto{background:#fff;box-shadow:0 0 0 1.5px var(--testo-tenue);}
-  .vuoto{padding:24px 16px;color:var(--testo-tenue);font-size:.92rem;}
-
-  .legenda{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0 0;font-size:.85rem;color:var(--testo-tenue);}
+  /* Mappa a tutta larghezza (fuori dai margini del sito) */
+  #mappa{width:100%;height:clamp(480px,78vh,820px);border-top:1px solid var(--confine);border-bottom:1px solid var(--confine);background:var(--avorio-scuro);z-index:0;}
+  .legenda{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 0;font-size:.85rem;color:var(--testo-tenue);}
   .legenda span{display:inline-flex;align-items:center;gap:6px;}
   .legenda i{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25);}
-  .nota-precisione{margin:14px 0 0;font-size:.86rem;color:var(--testo-tenue);max-width:80ch;}
+  .nota-precisione{margin:12px 0 0;font-size:.86rem;color:var(--testo-tenue);max-width:80ch;}
 
   /* Marker e popup */
-  .marker-perdita{width:22px;height:22px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.45);}
+  .marker-perdita{width:22px;height:22px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.45);transition:transform .15s ease,box-shadow .15s ease;}
   .marker-perdita.attiva{background:var(--critico);}
   .marker-perdita.riparata{background:var(--ok);}
-  .marker-perdita.zona{border-style:dashed;border-color:#fff;}
+  .marker-perdita.zona{border-style:dashed;}
+  .marker-perdita.sel{transform:scale(1.5);box-shadow:0 0 0 4px rgba(74,127,212,.65),0 2px 8px rgba(0,0,0,.5);}
+  .leaflet-marker-icon:has(.sel){z-index:10000 !important;}
   .marker-cluster-small,.marker-cluster-medium,.marker-cluster-large{background-color:rgba(91,155,213,.55);}
   .marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div{background-color:var(--blu-marina);color:#fff;font-weight:700;font-family:var(--sans);}
   .leaflet-popup-content{font-family:var(--sans);font-size:.9rem;line-height:1.45;margin:14px 16px;min-width:210px;}
   .popup-cod{font-size:.74rem;font-weight:700;letter-spacing:.4px;color:var(--testo-tenue);}
   .popup-ind{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--blu-marina);margin:2px 0 8px;line-height:1.25;}
-  .badge{display:inline-block;font-size:.76rem;font-weight:700;padding:2px 10px;border-radius:999px;}
-  .badge.attiva{background:var(--critico-bg);color:var(--critico);}
-  .badge.riparata{background:var(--ok-bg);color:var(--ok);}
   .popup-prec{margin:8px 0 10px;font-size:.8rem;color:var(--testo-tenue);}
   .popup-link{font-size:.84rem;font-weight:600;}
+  .badge{display:inline-block;font-size:.76rem;font-weight:700;padding:2px 10px;border-radius:999px;white-space:nowrap;}
+  .badge.attiva{background:var(--critico-bg);color:var(--critico);}
+  .badge.riparata{background:var(--ok-bg);color:var(--ok);}
+  .badge.pos-ok{background:var(--avorio-scuro);color:var(--testo-tenue);}
+  .badge.pos-no{background:var(--ambra-bg);color:var(--ambra-testo);border:1px solid var(--ambra);}
 
+  /* Tabella */
+  .tabella-testata{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin:36px 0 12px;}
+  .tabella-testata p{margin:0;color:var(--testo-tenue);font-size:.9rem;}
+  #tabella-scroll{max-height:640px;overflow:auto;background:#fff;border:1px solid var(--confine);border-radius:var(--radius);position:relative;}
+  table.perdite{width:100%;border-collapse:collapse;font-size:.92rem;}
+  table.perdite th{position:sticky;top:0;z-index:2;background:var(--blu-marina);color:#fff;text-align:left;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;padding:10px 14px;}
+  table.perdite td{padding:10px 14px;border-bottom:1px solid var(--avorio-scuro);vertical-align:middle;}
+  table.perdite tr.riga{cursor:pointer;}
+  table.perdite tr.riga:hover td{background:var(--avorio);}
+  table.perdite tr.riga:focus-visible{outline:3px solid var(--accento);outline-offset:-3px;}
+  table.perdite tr.riga.selezionata td{background:#DCE9F8;}
+  table.perdite tr.riga.selezionata td:first-child{box-shadow:inset 4px 0 0 var(--accento);}
+  table.perdite td.cod{font-weight:700;color:var(--testo-tenue);white-space:nowrap;font-size:.84rem;}
+  table.perdite td.via{font-weight:600;}
+  table.perdite tr.gruppo td{background:var(--ambra-bg);color:var(--ambra-testo);font-weight:700;font-size:.88rem;border-top:3px solid var(--ambra);border-bottom:1px solid var(--ambra);padding:12px 14px;}
+  table.perdite tr.gruppo p{margin:2px 0 0;font-weight:400;font-size:.84rem;}
+  table.perdite tr.riga.senza td{background:#FFFBF0;}
+  table.perdite tr.riga.senza:hover td{background:var(--ambra-bg);}
+  table.perdite tr.riga.senza.selezionata td{background:var(--ambra-bg);}
+  table.perdite tr.riga.senza td:first-child{box-shadow:inset 4px 0 0 var(--ambra);}
+  .vuoto{padding:28px 16px;color:var(--testo-tenue);font-size:.92rem;text-align:center;}
   #errore-caricamento{display:none;margin:0 0 16px;padding:12px 16px;border-radius:var(--radius);background:var(--critico-bg);border:1px solid var(--critico);color:var(--critico);font-size:.92rem;}
+  .suggerimento-mobile{display:none;font-size:.82rem;color:var(--testo-tenue);margin:8px 0 0;}
 
   /* ===== Footer ===== */
   footer{background:var(--blu-marina);color:#B9C6CE;padding:32px 24px 24px;font-size:.88rem;}
@@ -155,19 +170,21 @@
   .footer-base{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.8rem;color:#9FB3BC;}
 
   @media (max-width:900px){
-    .mappa-griglia{grid-template-columns:1fr;}
-    #mappa{height:460px;}
-    .elenco{height:380px;}
     .contatori{grid-template-columns:repeat(2,1fr);}
     .invito{grid-template-columns:1fr;padding:20px;}
+    #mappa{height:clamp(420px,70vh,640px);}
   }
   @media (max-width:780px){
     .header-interno{flex-direction:column;text-align:center;padding:18px 16px;gap:14px;}
     .logo-blocco{flex-direction:column;gap:10px;}
     .logo-immagine{height:84px;}
     .logo-testo h1{font-size:1.8rem;}
-    main{padding:28px 16px 40px;}
+    main{padding:28px 0 40px;}
+    .wrap{padding:0 16px;}
     nav.principale a{padding:10px 14px;font-size:.9rem;}
+    table.perdite th,table.perdite td{padding:9px 10px;}
+    table.perdite th:nth-child(4),table.perdite td:nth-child(4){display:none;}
+    table.perdite tr.gruppo td{display:table-cell;}
   }
 </style>
 </head>
@@ -198,7 +215,7 @@
   <div class="wrap">
     <span class="eyebrow">Licata (AG) — Registro del comitato</span>
     <h2 class="titolo">Mappa delle perdite idriche</h2>
-    <p class="sotto-titolo">Le perdite d'acqua rilevate dal comitato nella città di Licata. Clicca su un punto della mappa o su una voce dell'elenco per vedere i dettagli. Registro aggiornato al <strong id="data-aggiornamento">—</strong>.</p>
+    <p class="sotto-titolo">Le perdite d'acqua rilevate dal comitato nella città di Licata. Clicca su un punto della mappa o su una riga della tabella: i due restano sincronizzati. Registro aggiornato al <strong id="data-aggiornamento">—</strong>.</p>
 
     <div class="invito" id="invito">
       <div>
@@ -219,7 +236,7 @@
       <div class="contatore"><strong id="cont-totale">—</strong><span>perdite registrate</span></div>
       <div class="contatore rosso"><strong id="cont-attive">—</strong><span>da riparare</span></div>
       <div class="contatore verde"><strong id="cont-riparate">—</strong><span>riparate</span></div>
-      <div class="contatore"><strong id="cont-senza">—</strong><span>posizione da definire</span></div>
+      <div class="contatore ambra"><strong id="cont-senza">—</strong><span>da posizionare sulla mappa</span></div>
     </div>
 
     <div class="filtri">
@@ -228,23 +245,35 @@
         <button type="button" class="chip" data-filtro="attiva" aria-pressed="false">Da riparare</button>
         <button type="button" class="chip" data-filtro="riparata" aria-pressed="false">Riparate</button>
       </div>
+      <button type="button" class="chip chip-ambra" id="chip-senza" aria-pressed="false">Solo da posizionare</button>
       <input type="search" class="ricerca" id="ricerca" placeholder="Cerca una via o un codice…" aria-label="Cerca una via o un codice" autocomplete="off">
     </div>
+  </div>
 
-    <div class="mappa-griglia">
-      <div id="mappa" role="application" aria-label="Mappa interattiva delle perdite idriche di Licata"></div>
-      <aside class="elenco" aria-label="Elenco delle perdite">
-        <div class="elenco-titolo"><span id="elenco-conteggio">—</span></div>
-        <ul id="elenco-lista"></ul>
-      </aside>
-    </div>
+  <!-- La mappa esce dai margini del sito e occupa tutta la larghezza -->
+  <div id="mappa" role="application" aria-label="Mappa interattiva delle perdite idriche di Licata"></div>
 
+  <div class="wrap">
     <div class="legenda" aria-hidden="true">
       <span><i style="background:var(--critico)"></i>Da riparare</span>
       <span><i style="background:var(--ok)"></i>Riparata</span>
       <span><i style="background:var(--petrolio-chiaro)"></i>Più perdite vicine (clicca per ingrandire)</span>
     </div>
-    <p class="nota-precisione">I punti indicano la posizione <strong>indicativa</strong> della via o della zona, non il civico esatto. Il numero civico esatto è riportato nella scheda di ogni perdita. Per le voci elencate come «posizione da definire» stiamo ancora verificando l'ubicazione.</p>
+    <p class="suggerimento-mobile" id="suggerimento-mobile">Sul telefono usa due dita per spostare e ingrandire la mappa.</p>
+    <p class="nota-precisione">I punti indicano la posizione <strong>indicativa</strong> della via o della zona, non il civico esatto. Il numero civico esatto è quello scritto nella tabella e nella scheda di ogni perdita.</p>
+
+    <div class="tabella-testata">
+      <div>
+        <h3 class="sottotitolo-sez">Elenco delle perdite</h3>
+        <p><span id="tabella-conteggio">—</span> · clicca una riga per vederla sulla mappa</p>
+      </div>
+    </div>
+    <div id="tabella-scroll">
+      <table class="perdite">
+        <thead><tr><th scope="col">Codice</th><th scope="col">Via / località</th><th scope="col">Stato</th><th scope="col">Posizione sulla mappa</th></tr></thead>
+        <tbody id="tabella-corpo"></tbody>
+      </table>
+    </div>
 
     <noscript><p class="nota-precisione"><strong>Per vedere la mappa serve JavaScript.</strong> In alternativa scrivi a <a href="mailto:info@lacquaaicittadini.it">info@lacquaaicittadini.it</a> per ricevere l'elenco delle perdite.</p></noscript>
   </div>
@@ -267,24 +296,14 @@
   var EMAIL = 'info@lacquaaicittadini.it';
   var LICATA = [37.1034, 13.9376];
   var STATI = { attiva: 'Da riparare', riparata: 'Riparata' };
-  var PRECISIONE = {
-    civico: 'Posizione sul civico indicato.',
-    via: 'Posizione indicativa lungo la via: il civico esatto è quello riportato sopra.',
-    zona: 'Posizione approssimata della zona o località indicata.'
-  };
+  var POSIZIONE = { civico: 'Sul civico', via: 'Sulla via (indicativa)', zona: 'Zona (approssimata)' };
 
   document.getElementById('anno-corrente').textContent = new Date().getFullYear();
 
-  /* ---------- mailto ---------- */
+  /* ---------- utilità ---------- */
   function mailto(oggetto, corpo) {
     return 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(oggetto) + '&body=' + encodeURIComponent(corpo);
   }
-  document.getElementById('btn-segnala').href = mailto(
-    'Segnalazione perdita idrica - Licata',
-    'Via: \nNumero civico (importante): \nDescrizione (facoltativa): \n\nAllego foto o video della perdita.'
-  );
-
-  /* ---------- elementi DOM ---------- */
   function el(tag, cls, testo) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -296,13 +315,27 @@
     box.textContent = msg;
     box.style.display = 'block';
   }
+  document.getElementById('btn-segnala').href = mailto(
+    'Segnalazione perdita idrica - Licata',
+    'Via: \nNumero civico (importante): \nDescrizione (facoltativa): \n\nAllego foto o video della perdita.'
+  );
 
-  /* ---------- mappa ---------- */
   if (typeof L === 'undefined') {
     mostraErrore('Non è stato possibile caricare la mappa. Controlla la connessione e ricarica la pagina, oppure scrivi a ' + EMAIL + '.');
     return;
   }
-  var mappa = L.map('mappa', { center: LICATA, zoom: 14, minZoom: 11, maxZoom: 19, scrollWheelZoom: true });
+
+  /* ---------- mappa ---------- */
+  var mobile = L.Browser.mobile;
+  var mappa = L.map('mappa', {
+    center: LICATA, zoom: 14, minZoom: 11, maxZoom: 19,
+    scrollWheelZoom: false,          // evita di "bloccare" lo scroll della pagina: si attiva dopo un clic sulla mappa
+    dragging: !mobile                // su telefono: due dita per spostare, una per scorrere la pagina
+  });
+  if (mobile) document.getElementById('suggerimento-mobile').style.display = 'block';
+  mappa.on('click focus', function () { mappa.scrollWheelZoom.enable(); });
+  mappa.on('mouseout blur', function () { mappa.scrollWheelZoom.disable(); });
+
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -310,25 +343,28 @@
   var cluster = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 40, spiderfyOnMaxZoom: true });
   mappa.addLayer(cluster);
 
-  var dati = [];          // tutte le perdite
-  var marker = {};        // id -> marker Leaflet
+  /* ---------- stato ---------- */
+  var dati = [];
+  var marker = {};            // id -> marker Leaflet
+  var righe = {};             // id -> <tr>
   var filtro = 'tutte';
+  var soloSenza = false;
   var testoRicerca = '';
+  var selezionato = null;     // id della perdita selezionata
 
+  /* ---------- popup e marker ---------- */
   function popup(p) {
     var box = el('div');
     box.appendChild(el('div', 'popup-cod', p.id));
     box.appendChild(el('div', 'popup-ind', p.indirizzo));
     box.appendChild(el('span', 'badge ' + p.stato, STATI[p.stato] || p.stato));
-    if (p.precisione && PRECISIONE[p.precisione]) {
-      var testoPrec = PRECISIONE[p.precisione];
-      if (p.precisione === 'via') {
-        testoPrec = /\d/.test(p.indirizzo)
-          ? 'Posizione indicativa lungo la via: il civico esatto è quello indicato sopra.'
-          : 'Posizione indicativa lungo la via. Il civico non è indicato nel registro.';
-      }
-      box.appendChild(el('p', 'popup-prec', testoPrec));
-    }
+    var testoPrec;
+    if (p.precisione === 'civico') testoPrec = 'Posizione sul civico indicato.';
+    else if (p.precisione === 'via') testoPrec = /\d/.test(p.indirizzo)
+      ? 'Posizione indicativa lungo la via: il civico esatto è quello indicato sopra.'
+      : 'Posizione indicativa lungo la via. Il civico non è indicato nel registro.';
+    else if (p.precisione === 'zona') testoPrec = 'Posizione approssimata della zona o località indicata.';
+    if (testoPrec) box.appendChild(el('p', 'popup-prec', testoPrec));
     var a = el('a', 'popup-link', 'Segnala un aggiornamento su questa perdita →');
     a.href = mailto('Aggiornamento perdita ' + p.id + ' - ' + p.indirizzo,
       'Perdita ' + p.id + ' (' + p.indirizzo + ')\n\nAggiornamento: \n\nAllego foto o video.');
@@ -336,19 +372,68 @@
     return box;
   }
 
+  function evidenzia(m, attiva) {
+    var e = m.getElement && m.getElement();
+    var pallino = e && e.firstChild;
+    if (pallino) pallino.classList.toggle('sel', attiva);
+  }
+
   function creaMarker(p) {
     var icona = L.divIcon({
       className: '',
       html: '<div class="marker-perdita ' + p.stato + (p.precisione === 'zona' ? ' zona' : '') + '"></div>',
-      iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -12]
+      iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -14]
     });
     var m = L.marker([p.lat, p.lng], { icon: icona, title: p.id + ' — ' + p.indirizzo, alt: p.id + ' ' + p.indirizzo, keyboard: true });
     m.bindPopup(function () { return popup(p); });
+    // MAPPA -> TABELLA
+    m.on('popupopen', function () {
+      evidenzia(m, true);
+      if (selezionato !== p.id) seleziona(p.id, 'mappa');
+    });
+    m.on('popupclose', function () {
+      evidenzia(m, false);
+      if (selezionato === p.id) deseleziona();
+    });
     return m;
   }
 
+  /* ---------- selezione sincronizzata ---------- */
+  function deseleziona() {
+    if (selezionato && righe[selezionato]) {
+      righe[selezionato].classList.remove('selezionata');
+      righe[selezionato].setAttribute('aria-selected', 'false');
+    }
+    selezionato = null;
+  }
+
+  function scrollRiga(tr) {
+    var box = document.getElementById('tabella-scroll');
+    var top = tr.offsetTop - box.clientHeight / 2 + tr.offsetHeight / 2;
+    box.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
+  function seleziona(id, origine) {
+    deseleziona();
+    selezionato = id;
+    var tr = righe[id];
+    if (tr) {
+      tr.classList.add('selezionata');
+      tr.setAttribute('aria-selected', 'true');
+      if (origine === 'mappa') scrollRiga(tr);          // la riga si evidenzia anche nella tabella
+    }
+    var m = marker[id];
+    if (!m) mappa.closePopup();                         // riga senza posizione: nessun punto da mostrare
+    if (origine === 'tabella' && m) {                   // TABELLA -> MAPPA
+      document.getElementById('mappa').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      cluster.zoomToShowLayer(m, function () { evidenzia(m, true); m.openPopup(); });
+    }
+  }
+
+  /* ---------- filtri e rendering ---------- */
   function visibile(p) {
     if (filtro !== 'tutte' && p.stato !== filtro) return false;
+    if (soloSenza && p.lat != null) return false;
     if (testoRicerca) {
       var t = (p.id + ' ' + p.indirizzo).toLowerCase();
       if (t.indexOf(testoRicerca) === -1) return false;
@@ -356,51 +441,72 @@
     return true;
   }
 
-  function apri(p) {
-    var m = marker[p.id];
-    if (!m) return;
-    cluster.zoomToShowLayer(m, function () { m.openPopup(); });
-    document.getElementById('mappa').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  function creaRiga(p) {
+    var tr = el('tr', 'riga' + (p.lat == null ? ' senza' : ''));
+    tr.tabIndex = 0;
+    tr.setAttribute('aria-selected', 'false');
+    tr.appendChild(el('td', 'cod', p.id));
+    tr.appendChild(el('td', 'via', p.indirizzo));
+    var tdStato = el('td'); tdStato.appendChild(el('span', 'badge ' + p.stato, STATI[p.stato] || p.stato)); tr.appendChild(tdStato);
+    var tdPos = el('td');
+    if (p.lat == null) tdPos.appendChild(el('span', 'badge pos-no', 'Da definire'));
+    else tdPos.appendChild(el('span', 'badge pos-ok', POSIZIONE[p.precisione] || 'Sulla mappa'));
+    tr.appendChild(tdPos);
+    var vai = function () { seleziona(p.id, 'tabella'); };
+    tr.addEventListener('click', vai);
+    tr.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); vai(); }
+    });
+    righe[p.id] = tr;
+    return tr;
   }
 
   function aggiorna() {
+    mappa.closePopup();
+    deseleziona();
+    righe = {};
     var lista = dati.filter(visibile);
-    var ul = document.getElementById('elenco-lista');
-    ul.textContent = '';
+    var posizionate = lista.filter(function (p) { return p.lat != null; });
+    var senza = lista.filter(function (p) { return p.lat == null; });
+
     cluster.clearLayers();
-    lista.forEach(function (p) {
-      if (marker[p.id]) cluster.addLayer(marker[p.id]);
-      var li = el('li');
-      var b = el('button', 'voce' + (p.lat == null ? ' senza-posizione' : ''));
-      b.type = 'button';
-      b.appendChild(el('span', 'punto ' + p.stato));
-      var txt = el('span');
-      txt.appendChild(el('span', 'cod', p.id));
-      txt.appendChild(el('span', 'ind', p.indirizzo));
-      txt.appendChild(el('span', 'meta', (STATI[p.stato] || p.stato) + (p.lat == null ? ' · posizione da definire' : '')));
-      b.appendChild(txt);
-      if (p.lat != null) b.addEventListener('click', function () { apri(p); });
-      else b.setAttribute('aria-disabled', 'true');
-      li.appendChild(b);
-      ul.appendChild(li);
-    });
-    if (!lista.length) ul.appendChild(el('li', 'vuoto', 'Nessuna perdita corrisponde alla ricerca.'));
-    document.getElementById('elenco-conteggio').textContent = lista.length + (lista.length === 1 ? ' perdita' : ' perdite');
-    var conPos = lista.filter(function (p) { return p.lat != null; });
-    if (conPos.length && cluster.getLayers().length) {
-      mappa.fitBounds(cluster.getBounds().pad(0.15), { maxZoom: 16 });
+    posizionate.forEach(function (p) { cluster.addLayer(marker[p.id]); });
+
+    var corpo = document.getElementById('tabella-corpo');
+    corpo.textContent = '';
+    posizionate.forEach(function (p) { corpo.appendChild(creaRiga(p)); });
+
+    if (senza.length) {                                   // gruppo ben separato e ben visibile
+      var g = el('tr', 'gruppo');
+      var td = el('td'); td.colSpan = 4;
+      td.appendChild(el('div', null, '⚠ Perdite non ancora posizionate sulla mappa (' + senza.length + ')'));
+      td.appendChild(el('p', null, 'Stiamo verificando dove si trovano: per ora compaiono solo in questa tabella.'));
+      g.appendChild(td);
+      corpo.appendChild(g);
+      senza.forEach(function (p) { corpo.appendChild(creaRiga(p)); });
     }
+    if (!lista.length) {
+      var v = el('tr'); var tv = el('td', 'vuoto', 'Nessuna perdita corrisponde ai filtri scelti.'); tv.colSpan = 4;
+      v.appendChild(tv); corpo.appendChild(v);
+    }
+    document.getElementById('tabella-conteggio').textContent = lista.length + (lista.length === 1 ? ' perdita' : ' perdite');
+    document.getElementById('tabella-scroll').scrollTop = 0;
+    if (posizionate.length) mappa.fitBounds(cluster.getBounds().pad(0.15), { maxZoom: 16 });
   }
 
-  /* ---------- filtri ---------- */
-  Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (c) {
+  Array.prototype.forEach.call(document.querySelectorAll('.chip[data-filtro]'), function (c) {
     c.addEventListener('click', function () {
       filtro = c.getAttribute('data-filtro');
-      Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (x) {
+      Array.prototype.forEach.call(document.querySelectorAll('.chip[data-filtro]'), function (x) {
         x.setAttribute('aria-pressed', x === c ? 'true' : 'false');
       });
       aggiorna();
     });
+  });
+  document.getElementById('chip-senza').addEventListener('click', function () {
+    soloSenza = !soloSenza;
+    this.setAttribute('aria-pressed', soloSenza ? 'true' : 'false');
+    aggiorna();
   });
   document.getElementById('ricerca').addEventListener('input', function (e) {
     testoRicerca = e.target.value.trim().toLowerCase();
@@ -413,13 +519,13 @@
     .then(function (json) {
       dati = json.perdite || [];
       dati.forEach(function (p) { if (p.lat != null && p.lng != null) marker[p.id] = creaMarker(p); });
-      var attive = dati.filter(function (p) { return p.stato === 'attiva'; }).length;
-      var riparate = dati.filter(function (p) { return p.stato === 'riparata'; }).length;
-      var senza = dati.filter(function (p) { return p.lat == null; }).length;
+      var conta = function (f) { return dati.filter(f).length; };
       document.getElementById('cont-totale').textContent = dati.length;
-      document.getElementById('cont-attive').textContent = attive;
-      document.getElementById('cont-riparate').textContent = riparate;
-      document.getElementById('cont-senza').textContent = senza;
+      document.getElementById('cont-attive').textContent = conta(function (p) { return p.stato === 'attiva'; });
+      document.getElementById('cont-riparate').textContent = conta(function (p) { return p.stato === 'riparata'; });
+      var nSenza = conta(function (p) { return p.lat == null; });
+      document.getElementById('cont-senza').textContent = nSenza;
+      document.getElementById('chip-senza').textContent = 'Solo da posizionare (' + nSenza + ')';
       if (json.aggiornato) {
         var d = new Date(json.aggiornato + 'T12:00:00');
         document.getElementById('data-aggiornamento').textContent = isNaN(d) ? json.aggiornato : d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
