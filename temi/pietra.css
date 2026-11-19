@@ -1,0 +1,48 @@
+/* B — Pietra e Memoria: editoriale, caldo, da giornale cittadino */
+:root{
+  --blu-marina:#3A2A1E; --blu-marina-scuro:#2A1E15;
+  --petrolio:#2F5D73; --petrolio-chiaro:#6E9AAE;
+  --accento:#B5532E; --accento-scuro:#943F1F;
+  --avorio:#F5EEDF; --avorio-scuro:#EBE0CA; --bianco:#FFFBF3;
+  --testo:#2E241B; --testo-tenue:#6F604F; --confine:#D8C8AA;
+  --radius:2px;
+  --serif:'Playfair Display', Georgia, serif; --sans:'Lora', Georgia, serif;
+}
+body.tema-pietra{background:var(--avorio);background-image:radial-gradient(rgba(120,90,50,.06) 1px,transparent 1px);background-size:4px 4px;}
+.tema-pietra header.principale{background:var(--avorio);color:var(--testo);border-bottom:3px double var(--testo);}
+.tema-pietra header.principale::after{display:none;}
+.tema-pietra .logo-testo h1{font-size:3rem;font-weight:800;letter-spacing:-.01em;}
+.tema-pietra .logo-testo p{color:var(--accento);font-family:'Inter',sans-serif;letter-spacing:.25em;}
+.tema-pietra .logo-immagine{filter:sepia(.3);}
+.tema-pietra nav.principale{border-top:1px solid var(--testo);padding-top:10px;}
+.tema-pietra nav.principale a{color:var(--testo);border:none;background:none;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;}
+.tema-pietra nav.principale a:hover{color:var(--accento);background:none;}
+.tema-pietra .hamburger{color:var(--testo);}
+
+.tema-pietra .hero{min-height:min(82vh,700px);}
+.tema-pietra .hero-galleria .slide{filter:sepia(.35) saturate(.85);}
+.tema-pietra .hero-velo{background:linear-gradient(90deg,rgba(42,30,21,.9) 0%,rgba(42,30,21,.5) 60%,rgba(42,30,21,.2));}
+.tema-pietra .hero h2{font-size:clamp(2.3rem,5vw,4rem);font-weight:800;line-height:1.05;}
+.tema-pietra .hero h2 em{display:block;font-style:italic;font-weight:500;color:#E9B48A;}
+.tema-pietra .hero p.lead{font-style:italic;color:#EADFCB;font-size:1.15rem;border-left:2px solid #E9B48A;padding-left:16px;}
+.tema-pietra .hero-pannello{background:var(--bianco);color:var(--testo);border:1px solid var(--testo);border-radius:0;box-shadow:8px 8px 0 rgba(0,0,0,.35);}
+.tema-pietra .hero-pannello h3{color:var(--accento);font-family:'Inter',sans-serif;}
+.tema-pietra .stato-riga{border-bottom-color:var(--confine);}
+.tema-pietra .btn{border-radius:0;font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem;}
+.tema-pietra .btn-secondario{border-color:#EADFCB;}
+
+.tema-pietra section{padding:72px 24px;}
+.tema-pietra section.alt{background:transparent;border-top:1px solid var(--confine);}
+.tema-pietra .titolo-sezione{border-bottom:1px solid var(--testo);padding-bottom:12px;margin-bottom:18px;}
+.tema-pietra .titolo-sezione h2{font-size:2.4rem;font-weight:800;color:var(--testo);}
+.tema-pietra .titolo-sezione .eyebrow{color:var(--accento);font-family:'Inter',sans-serif;letter-spacing:.2em;}
+.tema-pietra .sotto-titolo{font-style:italic;font-size:1.05rem;}
+.tema-pietra .sotto-titolo::first-letter{font-family:var(--serif);font-size:3.2em;float:left;line-height:.85;margin:4px 8px 0 0;color:var(--accento);font-style:normal;font-weight:800;}
+.tema-pietra [class^="scheda-"]{background:var(--bianco);border-radius:0;border-color:var(--confine);}
+.tema-pietra .scheda-avviso{border-left:none;border-top:3px solid var(--petrolio);}
+
+.tema-pietra .fascia-foto{min-height:380px;margin:0 24px;max-width:1080px;margin-inline:auto;border:10px solid var(--bianco);outline:1px solid var(--testo);}
+.tema-pietra .fascia-sfondo{filter:sepia(.4);}
+.tema-pietra .fascia-frase{font-family:var(--serif);font-style:italic;font-weight:500;}
+.tema-pietra .fascia-frase::before{content:"“";font-size:1.6em;line-height:0;vertical-align:-.3em;margin-right:4px;color:#E9B48A;}
+.tema-pietra footer{background:#2A1E15;}
