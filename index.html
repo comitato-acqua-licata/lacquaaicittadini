@@ -137,6 +137,21 @@
     border-color:rgba(255,255,255,0.85);
   }
   .logo-blocco{cursor:pointer;}
+
+  /* ===== Paginazione elenchi ===== */
+  .paginazione{
+    display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;
+    margin-top:22px;
+  }
+  .paginazione button{
+    font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;
+    min-width:38px;padding:7px 12px;border-radius:var(--radius);
+    border:1.5px solid var(--confine);background:#fff;color:var(--testo);
+  }
+  .paginazione button:hover:not(:disabled){border-color:var(--petrolio);}
+  .paginazione button.corrente{background:var(--petrolio);border-color:var(--petrolio);color:#fff;}
+  .paginazione button:disabled{opacity:.45;cursor:default;}
+  .paginazione .info-pagina{width:100%;text-align:center;font-size:.8rem;color:var(--testo-tenue);margin-top:4px;}
   .torna-home{padding-top:18px;padding-bottom:0;}
   .torna-home a{
     display:inline-block;font-size:.85rem;font-weight:600;
@@ -1671,6 +1686,64 @@ document.getElementById('form-adesione').addEventListener('submit', async (e) =>
 });
 
 /* ---------- Caricamento COMUNICATI DEL COMITATO dal backend ---------- */
+/* ---------- Paginazione generica degli elenchi ---------- */
+function paginaElenco(contenitore, perPagina){
+  const schede = Array.from(contenitore.children);
+  const totale = Math.ceil(schede.length / perPagina);
+
+  // Rimuove eventuali controlli precedenti (se l'elenco viene ricaricato)
+  const vecchi = contenitore.nextElementSibling;
+  if(vecchi && vecchi.classList.contains('paginazione')) vecchi.remove();
+  if(totale <= 1) return;
+
+  const nav = document.createElement('nav');
+  nav.className = 'paginazione';
+  nav.setAttribute('aria-label', 'Paginazione');
+  contenitore.after(nav);
+
+  let corrente = 1;
+
+  function vai(n, salta){
+    corrente = Math.min(Math.max(n, 1), totale);
+    schede.forEach((el, i) => {
+      el.classList.toggle('pagina-nascosta', Math.floor(i / perPagina) + 1 !== corrente);
+    });
+    disegna();
+    if(salta){
+      const sezione = contenitore.closest('section');
+      if(sezione) sezione.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+
+  function bottone(testo, n, opzioni){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = testo;
+    if(opzioni && opzioni.disabilitato) b.disabled = true;
+    if(opzioni && opzioni.corrente){ b.classList.add('corrente'); b.setAttribute('aria-current', 'page'); }
+    if(opzioni && opzioni.etichetta) b.setAttribute('aria-label', opzioni.etichetta);
+    b.addEventListener('click', () => vai(n, true));
+    return b;
+  }
+
+  function disegna(){
+    nav.innerHTML = '';
+    nav.appendChild(bottone('‹ Precedente', corrente - 1, {disabilitato: corrente === 1}));
+    for(let p = 1; p <= totale; p++){
+      nav.appendChild(bottone(String(p), p, {corrente: p === corrente, etichetta: 'Pagina ' + p}));
+    }
+    nav.appendChild(bottone('Successiva ›', corrente + 1, {disabilitato: corrente === totale}));
+    const info = document.createElement('div');
+    info.className = 'info-pagina';
+    const da = (corrente - 1) * perPagina + 1;
+    const a = Math.min(corrente * perPagina, schede.length);
+    info.textContent = 'Elementi ' + da + '–' + a + ' di ' + schede.length;
+    nav.appendChild(info);
+  }
+
+  vai(1, false);
+}
+
 async function caricaComunicatiComitato(){
   const contenitore = document.getElementById('lista-comunicati-comitato');
   try{
@@ -1711,6 +1784,7 @@ async function caricaComunicatiComitato(){
       `;
       contenitore.appendChild(div);
     });
+    paginaElenco(contenitore, 5);   // 5 comunicati per pagina
   }catch(err){
     contenitore.innerHTML = `<div class="placeholder-errore">Non è stato possibile caricare i comunicati del comitato in questo momento.</div>`;
   }
@@ -2001,6 +2075,7 @@ async function caricaPodcastVideo(){
       `;
       contenitore.appendChild(div);
     });
+    paginaElenco(contenitore, 4);   // 4 tra podcast e video per pagina
   }catch(err){
     contenitore.innerHTML = '<div class="placeholder-errore">Non è stato possibile caricare podcast e video in questo momento.</div>';
   }
