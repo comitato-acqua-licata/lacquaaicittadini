@@ -46,3 +46,8 @@ body.tema-manifesto{background:var(--avorio);}
 .tema-manifesto .fascia-frase{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,10vw,8rem);line-height:.9;max-width:none;color:var(--accento);text-shadow:4px 4px 0 #000;}
 .tema-manifesto .fascia-didascalia{background:#000;display:inline-block;padding:4px 8px;}
 .tema-manifesto footer{background:#000;border-top:6px solid var(--accento);}
+.tema-manifesto nav.principale a.voce-attiva{background:var(--accento);color:#000;border-color:var(--accento);}
+.tema-manifesto .paginazione button{border:3px solid #000;text-transform:uppercase;font-weight:700;color:#000;box-shadow:4px 4px 0 #000;}
+.tema-manifesto .paginazione button.corrente{background:var(--accento);border-color:#000;color:#000;}
+.tema-manifesto .paginazione button:disabled{box-shadow:none;}
+.tema-manifesto .torna-home a{border-width:3px;text-transform:uppercase;font-weight:700;color:#000;box-shadow:4px 4px 0 #000;}

@@ -60,4 +60,30 @@
     if (!inCoda) { inCoda = true; requestAnimationFrame(aggiorna); }
   }, { passive: true });
   aggiorna();
+
+  // Navigazione a "pagine" di index.html: ogni fascia fotografica segue la
+  // sezione che introduce (nascosta se la sezione e' nascosta) e il link
+  // "Torna alla home" va sopra la fascia, non tra la fascia e la sezione.
+  var selettore = document.querySelector('.selettore-versioni');
+  var sincronizza = function () {
+    fasce.forEach(function (f) {
+      var dopo = f.nextElementSibling;
+      while (dopo && dopo.tagName !== 'SECTION') dopo = dopo.nextElementSibling;
+      var nascosta = !dopo || dopo.classList.contains('pagina-nascosta');
+      if (f.classList.contains('pagina-nascosta') !== nascosta) f.classList.toggle('pagina-nascosta', nascosta);
+      var torna = f.nextElementSibling;
+      if (torna && torna.classList.contains('torna-home')) f.parentNode.insertBefore(torna, f);
+    });
+    // Il selettore delle versioni conserva la sezione aperta
+    if (selettore) selettore.querySelectorAll('a').forEach(function (a) {
+      a.setAttribute('href', a.getAttribute('href').split('#')[0] + location.hash);
+    });
+  };
+  if ('MutationObserver' in window) {
+    new MutationObserver(sincronizza).observe(document.body, {
+      subtree: true, childList: true, attributes: true, attributeFilter: ['class']
+    });
+  }
+  window.addEventListener('hashchange', sincronizza);
+  sincronizza();
 })();

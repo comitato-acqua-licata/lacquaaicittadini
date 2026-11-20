@@ -51,3 +51,7 @@ body.tema-onda{background:var(--avorio);}
 .tema-onda .fascia-foto::after{background:linear-gradient(0deg,rgba(3,26,41,.8),rgba(10,162,184,.1));}
 .tema-onda .fascia-frase{font-family:var(--serif);font-weight:800;font-size:clamp(2rem,5vw,3.6rem);}
 .tema-onda footer{background:#031A29;}
+.tema-onda nav.principale a.voce-attiva{background:rgba(71,224,208,.22);border-color:#47E0D0;}
+.tema-onda .paginazione button{border-radius:999px;}
+.tema-onda .paginazione button.corrente{background:linear-gradient(90deg,#13C2C2,#0A84B8);border-color:transparent;}
+.tema-onda .torna-home a{border-radius:999px;color:var(--petrolio);}
