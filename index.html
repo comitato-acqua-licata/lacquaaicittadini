@@ -1784,7 +1784,7 @@ async function caricaComunicatiComitato(){
       `;
       contenitore.appendChild(div);
     });
-    paginaElenco(contenitore, 5);   // 5 comunicati per pagina
+    paginaElenco(contenitore, 3);   // 5 comunicati per pagina
   }catch(err){
     contenitore.innerHTML = `<div class="placeholder-errore">Non è stato possibile caricare i comunicati del comitato in questo momento.</div>`;
   }
@@ -2075,7 +2075,7 @@ async function caricaPodcastVideo(){
       `;
       contenitore.appendChild(div);
     });
-    paginaElenco(contenitore, 4);   // 4 tra podcast e video per pagina
+    paginaElenco(contenitore, 3);   // 4 tra podcast e video per pagina
   }catch(err){
     contenitore.innerHTML = '<div class="placeholder-errore">Non è stato possibile caricare podcast e video in questo momento.</div>';
   }
