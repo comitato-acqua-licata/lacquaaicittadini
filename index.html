@@ -130,6 +130,35 @@
     text-decoration:none;
   }
 
+  /* ===== Navigazione a "pagine": una sezione alla volta ===== */
+  .pagina-nascosta{display:none !important;}
+  nav.principale a.voce-attiva{
+    background:rgba(255,255,255,0.28);
+    border-color:rgba(255,255,255,0.85);
+  }
+  .logo-blocco{cursor:pointer;}
+
+  /* ===== Paginazione elenchi ===== */
+  .paginazione{
+    display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;
+    margin-top:22px;
+  }
+  .paginazione button{
+    font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;
+    min-width:38px;padding:7px 12px;border-radius:var(--radius);
+    border:1.5px solid var(--confine);background:#fff;color:var(--testo);
+  }
+  .paginazione button:hover:not(:disabled){border-color:var(--petrolio);}
+  .paginazione button.corrente{background:var(--petrolio);border-color:var(--petrolio);color:#fff;}
+  .paginazione button:disabled{opacity:.45;cursor:default;}
+  .paginazione .info-pagina{width:100%;text-align:center;font-size:.8rem;color:var(--testo-tenue);margin-top:4px;}
+  .torna-home{padding-top:18px;padding-bottom:0;}
+  .torna-home a{
+    display:inline-block;font-size:.85rem;font-weight:600;
+    padding:6px 12px;border-radius:var(--radius);
+    border:1.5px solid currentColor;
+  }
+
   /* ===== Hero ===== */
   .hero{
     background:linear-gradient(180deg, var(--blu-marina) 0%, var(--blu-marina-scuro) 100%);
@@ -1657,6 +1686,64 @@ document.getElementById('form-adesione').addEventListener('submit', async (e) =>
 });
 
 /* ---------- Caricamento COMUNICATI DEL COMITATO dal backend ---------- */
+/* ---------- Paginazione generica degli elenchi ---------- */
+function paginaElenco(contenitore, perPagina){
+  const schede = Array.from(contenitore.children);
+  const totale = Math.ceil(schede.length / perPagina);
+
+  // Rimuove eventuali controlli precedenti (se l'elenco viene ricaricato)
+  const vecchi = contenitore.nextElementSibling;
+  if(vecchi && vecchi.classList.contains('paginazione')) vecchi.remove();
+  if(totale <= 1) return;
+
+  const nav = document.createElement('nav');
+  nav.className = 'paginazione';
+  nav.setAttribute('aria-label', 'Paginazione');
+  contenitore.after(nav);
+
+  let corrente = 1;
+
+  function vai(n, salta){
+    corrente = Math.min(Math.max(n, 1), totale);
+    schede.forEach((el, i) => {
+      el.classList.toggle('pagina-nascosta', Math.floor(i / perPagina) + 1 !== corrente);
+    });
+    disegna();
+    if(salta){
+      const sezione = contenitore.closest('section');
+      if(sezione) sezione.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+
+  function bottone(testo, n, opzioni){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = testo;
+    if(opzioni && opzioni.disabilitato) b.disabled = true;
+    if(opzioni && opzioni.corrente){ b.classList.add('corrente'); b.setAttribute('aria-current', 'page'); }
+    if(opzioni && opzioni.etichetta) b.setAttribute('aria-label', opzioni.etichetta);
+    b.addEventListener('click', () => vai(n, true));
+    return b;
+  }
+
+  function disegna(){
+    nav.innerHTML = '';
+    nav.appendChild(bottone('‹ Precedente', corrente - 1, {disabilitato: corrente === 1}));
+    for(let p = 1; p <= totale; p++){
+      nav.appendChild(bottone(String(p), p, {corrente: p === corrente, etichetta: 'Pagina ' + p}));
+    }
+    nav.appendChild(bottone('Successiva ›', corrente + 1, {disabilitato: corrente === totale}));
+    const info = document.createElement('div');
+    info.className = 'info-pagina';
+    const da = (corrente - 1) * perPagina + 1;
+    const a = Math.min(corrente * perPagina, schede.length);
+    info.textContent = 'Elementi ' + da + '–' + a + ' di ' + schede.length;
+    nav.appendChild(info);
+  }
+
+  vai(1, false);
+}
+
 async function caricaComunicatiComitato(){
   const contenitore = document.getElementById('lista-comunicati-comitato');
   try{
@@ -1697,6 +1784,7 @@ async function caricaComunicatiComitato(){
       `;
       contenitore.appendChild(div);
     });
+    paginaElenco(contenitore, 3);   // 5 comunicati per pagina
   }catch(err){
     contenitore.innerHTML = `<div class="placeholder-errore">Non è stato possibile caricare i comunicati del comitato in questo momento.</div>`;
   }
@@ -1987,6 +2075,7 @@ async function caricaPodcastVideo(){
       `;
       contenitore.appendChild(div);
     });
+    paginaElenco(contenitore, 3);   // 4 tra podcast e video per pagina
   }catch(err){
     contenitore.innerHTML = '<div class="placeholder-errore">Non è stato possibile caricare podcast e video in questo momento.</div>';
   }
@@ -2003,6 +2092,67 @@ caricaComitato();
 caricaPodcastVideo();
 </script>
 <button id="torna-su" aria-label="Torna in cima alla pagina" title="Torna su" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ---------- Navigazione a "pagine": mostra una sola sezione alla volta ----------
+   - Nessun hash (o #contenuto): HOME = intestazione + le sezioni elencate in SEZIONI_HOME
+   - #nome-sezione: viene mostrata solo quella sezione
+   Per cambiare cosa compare in home basta modificare l'elenco qui sotto. */
+(function(){
+  const SEZIONI_HOME = ['contenuto', 'avvisi', 'comunicati-comitato', 'turni'];
+  const sezioni = Array.from(document.querySelectorAll('section[id]'));
+  const idSezioni = sezioni.map(s => s.id);
+  const nav = document.getElementById('nav-principale');
+
+  // Link "Torna alla home" (creato una volta sola, spostato sopra la sezione aperta)
+  const tornaHome = document.createElement('div');
+  tornaHome.className = 'wrap torna-home';
+  tornaHome.innerHTML = '<a href="#contenuto">\u2190 Torna alla home</a>';
+
+  function idCorrente(){
+    let id = '';
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch(e) { id = ''; }
+    return (id && id !== 'contenuto' && idSezioni.indexOf(id) !== -1) ? id : '';
+  }
+
+  function aggiorna(){
+    const id = idCorrente();
+    sezioni.forEach(function(s){
+      const visibile = id ? (s.id === id) : (SEZIONI_HOME.indexOf(s.id) !== -1);
+      s.classList.toggle('pagina-nascosta', !visibile);
+    });
+
+    // Voce di menu attiva
+    if (nav) {
+      nav.querySelectorAll('a').forEach(function(a){
+        a.classList.toggle('voce-attiva', !!id && a.getAttribute('href') === '#' + id);
+      });
+    }
+
+    // Link per tornare alla home, solo quando si e' dentro una singola sezione
+    if (id) {
+      const sez = document.getElementById(id);
+      sez.parentNode.insertBefore(tornaHome, sez);
+    } else if (tornaHome.parentNode) {
+      tornaHome.parentNode.removeChild(tornaHome);
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }
+
+  // Un clic sul logo riporta alla home
+  const logo = document.querySelector('.logo-blocco');
+  if (logo) {
+    logo.addEventListener('click', function(){
+      history.pushState(null, '', location.pathname + location.search);
+      aggiorna();
+    });
+  }
+
+  window.addEventListener('hashchange', aggiorna);
+  aggiorna();
+})();
+</script>
 
 <script data-goatcounter="https://lacquaaicittadini.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 
