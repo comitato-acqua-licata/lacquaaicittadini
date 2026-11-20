@@ -59,3 +59,7 @@ body.tema-maiolica{background:var(--avorio);}
   .tema-maiolica .hero-punti{right:50%;bottom:auto;top:280px;}
   .tema-maiolica .fascia-foto{border-radius:120px 120px 16px 16px;margin:0 12px;}
 }
+.tema-maiolica nav.principale a.voce-attiva{background:var(--accento);color:var(--blu-marina);border-color:var(--accento);}
+.tema-maiolica .paginazione button{border-radius:999px;background:var(--bianco);}
+.tema-maiolica .paginazione button.corrente{background:var(--blu-marina);border-color:var(--blu-marina);}
+.tema-maiolica .torna-home a{border-radius:999px;color:var(--blu-marina);}

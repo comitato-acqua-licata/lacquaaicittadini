@@ -63,3 +63,7 @@ footer .crediti-foto{display:block;margin-top:28px;font-size:.78rem;}
   .js-rivela .rivela{opacity:1;transform:none;transition:none;}
   .fascia-sfondo{transform:none!important;}
 }
+
+/* ===== Navigazione a pagine e paginazione (da index.html) adattate ai temi ===== */
+.tema .paginazione button{font-family:inherit;transition:background .2s,border-color .2s,color .2s;}
+.tema .torna-home a{text-decoration:none;}
