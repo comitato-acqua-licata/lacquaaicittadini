@@ -6,6 +6,10 @@ Uso:  python3 temi/build.py   (dalla cartella del progetto)
 Ogni versione mantiene markup, ID e script dell'originale: cambia solo
 l'aspetto (temi/<nome>.css), l'apertura con galleria di foto, le fasce
 fotografiche tra le sezioni e i crediti delle immagini nel footer.
+In più, ogni versione incorpora la mappa delle perdite idriche
+(temi/mappa.html + mappa.css + mappa.js, dati in perdite/perdite.json):
+un'anteprima in home, la sezione #mappa-perdite, la voce di menu, il
+pulsante nell'apertura e il link nel footer. index.html non viene toccato.
 """
 import html
 import json
@@ -73,6 +77,20 @@ VERSIONI = {
     },
 }
 
+MAPPA_HTML = (ROOT / "temi/mappa.html").read_text(encoding="utf-8")
+
+# Leaflet + MarkerCluster da cdnjs, con controllo di integrità (stessi file della pagina mappa_perdite.html)
+LEAFLET_CSS = (
+    '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous" referrerpolicy="no-referrer">\n'
+    '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css" integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV" crossorigin="anonymous" referrerpolicy="no-referrer">\n'
+    '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css" integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+" crossorigin="anonymous" referrerpolicy="no-referrer">\n'
+)
+LEAFLET_JS = (
+    '<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous" referrerpolicy="no-referrer"></script>\n'
+    '<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js" integrity="sha384-eXVCORTRlv4FUUgS/xmOyr66XBVraen8ATNLMESp92FKXLAMiKkerixTiBvXriZr" crossorigin="anonymous" referrerpolicy="no-referrer"></script>\n'
+    '<script defer src="temi/mappa.js"></script>\n'
+)
+
 CRED = {Path(c["file"]).stem: c for c in CREDITI}
 
 
@@ -130,11 +148,52 @@ def selettore(attuale):
     return f'<nav class="selettore-versioni" aria-label="Versioni del sito"><span>Versioni:</span>{voci}</nav>\n'
 
 
+def sostituisci(out, vecchio, nuovo):
+    """Sostituzione esatta, con errore chiaro se index.html è cambiato."""
+    assert vecchio in out, f"punto di aggancio non trovato in index.html: {vecchio[:60]!r}"
+    return out.replace(vecchio, nuovo, 1)
+
+
+def incorpora_mappa(out):
+    """Collega la mappa delle perdite alla home: pulsante, menu, anteprima, sezione, footer."""
+    # pulsante nell'apertura
+    out = sostituisci(
+        out,
+        '<a href="#turni" class="btn btn-primario">Controlla il turno del tuo comune</a>\n',
+        '<a href="#turni" class="btn btn-primario">Controlla il turno del tuo comune</a>\n'
+        '        <a href="#mappa-perdite" class="btn btn-secondario">Mappa delle perdite a Licata</a>\n',
+    )
+    # voce di menu
+    out = sostituisci(
+        out,
+        '<a href="#turni">Turni idrici</a>\n      <a href="#arera">ARERA</a>',
+        '<a href="#turni">Turni idrici</a>\n      <a href="#mappa-perdite">Mappa perdite</a>\n      <a href="#arera">ARERA</a>',
+    )
+    # link nel footer
+    out = sostituisci(
+        out,
+        '<li><a href="#arera">ARERA</a></li>',
+        '<li><a href="#mappa-perdite">Mappa delle perdite</a></li>\n        <li><a href="#arera">ARERA</a></li>',
+    )
+    # anteprima (in home) + sezione con la mappa, subito dopo i turni
+    marcatore = "<!-- ===================== ARERA ===================== -->"
+    out = sostituisci(out, marcatore, MAPPA_HTML + marcatore)
+    # l'anteprima compare in home insieme alle altre sezioni
+    out = sostituisci(
+        out,
+        "const SEZIONI_HOME = ['contenuto', 'avvisi', 'comunicati-comitato', 'turni'];",
+        "const SEZIONI_HOME = ['contenuto', 'avvisi', 'comunicati-comitato', 'turni', 'mappa-anteprima'];",
+    )
+    return out
+
+
 def costruisci(nome, v):
     out = SRC
     testa = (
         f'<link href="https://fonts.googleapis.com/css2?{v["font"]}&display=swap" rel="stylesheet">\n'
         f'<link rel="stylesheet" href="temi/comune.css">\n'
+        f'{LEAFLET_CSS}'
+        f'<link rel="stylesheet" href="temi/mappa.css">\n'
         f'<link rel="stylesheet" href="temi/{nome}.css">\n</head>'
     )
     out = out.replace("</head>", testa, 1)
@@ -149,8 +208,10 @@ def costruisci(nome, v):
         assert marcatore in out, f"sezione {sezione} non trovata"
         out = out.replace(marcatore, fascia(k, didascalia, frase) + marcatore, 1)
 
+    out = incorpora_mappa(out)
+
     out = out.replace('<div class="footer-base">', crediti() + '  <div class="footer-base">', 1)
-    out = out.replace("</body>", f'{selettore(nome)}<script src="temi/comune.js" defer></script>\n</body>', 1)
+    out = out.replace("</body>", f'{selettore(nome)}{LEAFLET_JS}<script src="temi/comune.js" defer></script>\n</body>', 1)
     (ROOT / f"index-{nome}.html").write_text(out, encoding="utf-8")
     print(f"index-{nome}.html")
 

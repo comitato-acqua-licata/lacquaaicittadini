@@ -750,6 +750,10 @@
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="temi/comune.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css" integrity="sha384-pmjIAcz2bAn0xukfxADbZIb3t8oRT9Sv0rvO+BR5Csr6Dhqq+nZs59P0pPKQJkEV" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css" integrity="sha384-wgw+aLYNQ7dlhK47ZPK7FRACiq7ROZwgFNg0m04avm4CaXS+Z9Y7nMu8yNjBKYC+" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="temi/mappa.css">
 <link rel="stylesheet" href="temi/manifesto.css">
 </head>
 <body class="tema tema-manifesto">
@@ -774,6 +778,7 @@
       <a href="#avvisi">Avvisi AICA</a>
       <a href="#comunicati-comitato">Comunicati</a>
       <a href="#turni">Turni idrici</a>
+      <a href="#mappa-perdite">Mappa perdite</a>
       <a href="#arera">ARERA</a>
       <a href="#modulistica">Modulistica</a>
       <a href="#podcast">Podcast/Video</a>
@@ -794,6 +799,7 @@
       <p class="lead">Monitoriamo avvisi, turni di erogazione e disservizi della rete idrica nei comuni dell'Agrigentino. Raccogliamo le segnalazioni dei cittadini per portarle ai tavoli che contano.</p>
       <div class="hero-azioni">
         <a href="#turni" class="btn btn-primario">Controlla il turno del tuo comune</a>
+        <a href="#mappa-perdite" class="btn btn-secondario">Mappa delle perdite a Licata</a>
         <a href="#partecipa" class="btn btn-secondario">Segnala un disservizio</a>
         <a href="#sostieni" class="btn btn-secondario">Sostieni il comitato</a>
       </div>
@@ -883,6 +889,97 @@
     <div class="griglia-comuni" id="griglia-comuni">
       <!-- generato via JS -->
     </div>
+  </div>
+</section>
+
+<!-- ===================== MAPPA PERDITE (anteprima in home) ===================== -->
+<section id="mappa-anteprima">
+  <div class="wrap">
+    <div class="mp-teaser">
+      <div class="mp-teaser-testo">
+        <span class="eyebrow">Novità · Licata (AG)</span>
+        <h3>La mappa delle perdite idriche</h3>
+        <p>Tutte le perdite d'acqua rilevate dal comitato, una per una, su una mappa interattiva. Hai visto una perdita che non è segnata? Puoi segnalarla in pochi secondi.</p>
+        <div class="mp-teaser-numeri" aria-live="polite">
+          <div><strong data-mp="totale">—</strong><span>registrate</span></div>
+          <div class="rosso"><strong data-mp="attive">—</strong><span>da riparare</span></div>
+          <div class="verde"><strong data-mp="riparate">—</strong><span>riparate</span></div>
+        </div>
+      </div>
+      <a class="btn btn-primario" href="#mappa-perdite">Apri la mappa →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MAPPA PERDITE ===================== -->
+<section id="mappa-perdite">
+  <div class="wrap">
+    <div class="titolo-sezione">
+      <div>
+        <span class="eyebrow">Licata (AG) — Registro del comitato</span>
+        <h2>Mappa delle perdite idriche</h2>
+      </div>
+      <span class="aggiornato">Aggiornato: <span id="mp-data">—</span></span>
+    </div>
+    <p class="sotto-titolo">Le perdite d'acqua rilevate dal comitato nella città di Licata. Clicca su un punto della mappa o su una riga della tabella: i due restano sincronizzati.</p>
+
+    <div class="mp-invito">
+      <div>
+        <h3>Hai visto una perdita che non è in mappa?</h3>
+        <p>Scrivi a <a href="mailto:info@lacquaaicittadini.it?subject=Segnalazione%20perdita%20idrica%20-%20Licata">info@lacquaaicittadini.it</a> indicando:</p>
+        <ul>
+          <li>la <strong>via</strong>;</li>
+          <li>il <strong>numero civico</strong> — è l'informazione più importante per localizzare la perdita;</li>
+          <li>una <strong>foto o un video</strong> della perdita.</li>
+        </ul>
+      </div>
+      <a class="btn btn-primario" id="mp-segnala" href="#">Invia una segnalazione</a>
+    </div>
+
+    <div id="mp-errore" role="alert"></div>
+
+    <div class="mp-contatori" aria-live="polite">
+      <div class="mp-contatore"><strong data-mp="totale">—</strong><span>perdite registrate</span></div>
+      <div class="mp-contatore rosso"><strong data-mp="attive">—</strong><span>da riparare</span></div>
+      <div class="mp-contatore verde"><strong data-mp="riparate">—</strong><span>riparate</span></div>
+      <div class="mp-contatore ambra"><strong data-mp="senza">—</strong><span>da posizionare sulla mappa</span></div>
+    </div>
+
+    <div class="mp-filtri">
+      <div class="mp-chip-gruppo" role="group" aria-label="Filtra per stato">
+        <button type="button" class="mp-chip" data-filtro="tutte" aria-pressed="true">Tutte</button>
+        <button type="button" class="mp-chip" data-filtro="attiva" aria-pressed="false">Da riparare</button>
+        <button type="button" class="mp-chip" data-filtro="riparata" aria-pressed="false">Riparate</button>
+      </div>
+      <button type="button" class="mp-chip mp-chip-ambra" id="mp-chip-senza" aria-pressed="false">Solo da posizionare</button>
+      <input type="search" class="mp-ricerca" id="mp-ricerca" placeholder="Cerca una via o un codice…" aria-label="Cerca una via o un codice" autocomplete="off">
+    </div>
+  </div>
+
+  <!-- La mappa esce dai margini del sito e occupa tutta la larghezza -->
+  <div id="mp-mappa" role="application" aria-label="Mappa interattiva delle perdite idriche di Licata"></div>
+
+  <div class="wrap">
+    <div class="mp-legenda" aria-hidden="true">
+      <span><i style="background:var(--critico)"></i>Da riparare</span>
+      <span><i style="background:var(--ok)"></i>Riparata</span>
+      <span><i style="background:var(--petrolio-chiaro)"></i>Più perdite vicine (clicca per ingrandire)</span>
+    </div>
+    <p class="mp-suggerimento-mobile" id="mp-suggerimento-mobile">Sul telefono usa due dita per spostare e ingrandire la mappa.</p>
+    <p class="mp-nota">I punti indicano la posizione <strong>indicativa</strong> della via o della zona, non il civico esatto. Il numero civico esatto è quello scritto nella tabella e nella scheda di ogni perdita.</p>
+
+    <div class="mp-tabella-testata">
+      <h3>Elenco delle perdite</h3>
+      <p><span id="mp-conteggio">—</span> · clicca una riga per vederla sulla mappa</p>
+    </div>
+    <div id="mp-tabella-scroll">
+      <table class="mp-tabella">
+        <thead><tr><th scope="col">Codice</th><th scope="col">Via / località</th><th scope="col">Stato</th><th scope="col">Posizione sulla mappa</th></tr></thead>
+        <tbody id="mp-corpo"></tbody>
+      </table>
+    </div>
+
+    <noscript><p class="mp-nota"><strong>Per vedere la mappa serve JavaScript.</strong> In alternativa scrivi a <a href="mailto:info@lacquaaicittadini.it">info@lacquaaicittadini.it</a> per ricevere l'elenco delle perdite.</p></noscript>
   </div>
 </section>
 
@@ -1361,6 +1458,7 @@
       <ul>
         <li><a href="#avvisi">Avvisi AICA</a></li>
         <li><a href="#turni">Turni idrici</a></li>
+        <li><a href="#mappa-perdite">Mappa delle perdite</a></li>
         <li><a href="#arera">ARERA</a></li>
         <li><a href="#modulistica">Modulistica</a></li>
         <li><a href="#podcast">Podcast/Video</a></li>
@@ -2107,7 +2205,7 @@ caricaPodcastVideo();
    - #nome-sezione: viene mostrata solo quella sezione
    Per cambiare cosa compare in home basta modificare l'elenco qui sotto. */
 (function(){
-  const SEZIONI_HOME = ['contenuto', 'avvisi', 'comunicati-comitato', 'turni'];
+  const SEZIONI_HOME = ['contenuto', 'avvisi', 'comunicati-comitato', 'turni', 'mappa-anteprima'];
   const sezioni = Array.from(document.querySelectorAll('section[id]'));
   const idSezioni = sezioni.map(s => s.id);
   const nav = document.getElementById('nav-principale');
@@ -2165,6 +2263,9 @@ caricaPodcastVideo();
 <script data-goatcounter="https://lacquaaicittadini.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 
 <nav class="selettore-versioni" aria-label="Versioni del sito"><span>Versioni:</span><a href="index.html">Originale</a><a href="index-mare.html">Mare e Faro</a><a href="index-pietra.html">Pietra e Memoria</a><a href="index-onda.html">Onda</a><a href="index-manifesto.html" aria-current=page>Manifesto</a><a href="index-maiolica.html">Maiolica</a></nav>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js" integrity="sha384-eXVCORTRlv4FUUgS/xmOyr66XBVraen8ATNLMESp92FKXLAMiKkerixTiBvXriZr" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer src="temi/mappa.js"></script>
 <script src="temi/comune.js" defer></script>
 </body>
 </html>
