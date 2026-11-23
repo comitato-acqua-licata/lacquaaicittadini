@@ -23,7 +23,9 @@ body.tema-maiolica{background:var(--avorio);}
 .tema-maiolica .hero-galleria{left:auto;right:4%;top:8%;bottom:8%;width:min(42%,520px);border-radius:999px 999px 18px 18px;overflow:hidden;border:10px solid var(--bianco);outline:3px solid var(--blu-marina);box-shadow:0 30px 60px rgba(19,55,122,.3);z-index:2;}
 .tema-maiolica .hero-velo{background:linear-gradient(0deg,rgba(19,55,122,.25),transparent 40%);}
 .tema-maiolica .hero > .wrap{z-index:3;}
-.tema-maiolica .hero-grid{grid-template-columns:minmax(0,1fr);max-width:54%;}
+/* Il testo occupa solo lo spazio a sinistra dell'arco con la foto (che è ancorato al bordo destro della pagina),
+   allineato al contenitore del sito: così non si sovrappone a nessuna larghezza. */
+.tema-maiolica .hero-grid{grid-template-columns:minmax(0,1fr);max-width:none;margin:0;padding-left:max(24px,calc((100% - 1080px)/2 + 24px));padding-right:calc(4% + min(42%,520px) + 56px);}
 .tema-maiolica .hero h2{font-size:clamp(2.4rem,5vw,4.2rem);color:var(--blu-marina);line-height:1.02;}
 .tema-maiolica .hero h2 em{color:var(--accento-scuro);font-style:italic;}
 .tema-maiolica .hero p.lead{color:var(--testo-tenue);}
@@ -55,7 +57,7 @@ body.tema-maiolica{background:var(--avorio);}
 @media (max-width:780px){
   .tema-maiolica .hero-galleria{position:relative;inset:auto;width:calc(100% - 32px);height:300px;margin:0 16px 24px;right:auto;}
   .tema-maiolica .hero{flex-direction:column;}
-  .tema-maiolica .hero-grid{max-width:none;}
+  .tema-maiolica .hero-grid{max-width:none;padding-left:24px;padding-right:24px;}
   .tema-maiolica .hero-punti{right:50%;bottom:auto;top:280px;}
   .tema-maiolica .fascia-foto{border-radius:120px 120px 16px 16px;margin:0 12px;}
 }
